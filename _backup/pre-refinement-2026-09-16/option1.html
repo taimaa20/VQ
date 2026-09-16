@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="h-full bg-slate-50">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Qatar - Intranet Design Concepts</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        vq: {
+                            teal: '#00626C',
+                            'teal-dark': '#00474F',
+                            'teal-light': '#008390',
+                            ruby: '#8A1538',
+                            amber: '#D76800',
+                            'amber-light': '#FF8A1A',
+                            offwhite: '#FFFDE8',
+                            gold: '#A18B29',
+                            red: '#F22434',
+                            green: '#01A786',
+                            purple: '#522D6E'
+                        }
+                    },
+                    fontFamily: {
+                        // Official Visit Qatar font stack with Tahoma fallback
+                        vq: ['"Visit Qatar"', '"زوروا قطر"', 'Tahoma', 'sans-serif']
+                    },
+                    fontWeight: {
+                        light: '400',
+                        normal: '400',
+                        medium: '500',
+                        semibold: '500',
+                        bold: '500',
+                        extrabold: '500',
+                        black: '500'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Official Visit Qatar typeface — Regular (body) & Medium (headlines) */
+        @font-face {
+            font-family: 'Visit Qatar';
+            src: local('Visit Qatar Regular'), local('Visit Qatar'), local('زوروا قطر');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Visit Qatar';
+            src: local('Visit Qatar Medium'), local('Visit Qatar'), local('زوروا قطر');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'زوروا قطر';
+            src: local('زوروا قطر'), local('Visit Qatar Regular'), local('Visit Qatar');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'زوروا قطر';
+            src: local('Visit Qatar Medium'), local('زوروا قطر'), local('Visit Qatar');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00626C;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00474F;
+        }
+
+        /* Qatar Arch Shape Motif */
+        .qatar-arch {
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+
+        .qatar-arch-card {
+            border-radius: 16px 16px 16px 4px;
+        }
+
+        /* Glassmorphic effect */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-teal {
+            background: rgba(0, 98, 108, 0.9);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Component Tag Badge */
+        .component-badge {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 500;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        #siteHeader {
+            background-color: #00626C;
+            /* Royal Teal */
+            border-bottom-color: rgba(0, 71, 79, 0.45);
+            box-shadow: 0 8px 24px rgba(0, 98, 108, 0.28);
+        }
+
+        #siteFooter {
+            background-color: #00626C;
+            /* Royal Teal */
+        }
+
+        .header-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .header-chip:hover,
+        .header-chip.is-active {
+            background: rgba(215, 104, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        #searchPanel {
+            position: absolute;
+            top: calc(100% + 10px);
+            inset-inline-start: 0;
+            width: min(28rem, 92vw);
+            z-index: 60;
+        }
+
+        [dir="ltr"] #searchPanel {
+            inset-inline-start: auto;
+            inset-inline-end: 0;
+        }
+
+        .footer-social {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .footer-social:hover {
+            background: rgba(215, 104, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .footer-cert {
+            height: 2.75rem;
+            width: auto;
+            max-width: 6.5rem;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .circular-content-normal {
+            position: relative;
+            display: block;
+            height: 9.5rem;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.1);
+        }
+
+        .circular-image-normal {
+            position: absolute;
+            inset: 0;
+        }
+
+        .circular-image-normal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .circular-text-normal {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: #fff;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0.55rem 0.7rem 0.6rem;
+            min-height: 3.4rem;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .circular-text-content {
+            padding: 0;
+        }
+
+        .circular-text-content h5 {
+            margin: 0 0 0.15rem;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .circular-text-content p {
+            margin: 0;
+            overflow: hidden;
+            color: #fff;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.6rem;
+            opacity: 0.9;
+        }
+
+        .blue-background {
+            background-color: #005871 !important;
+            box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11);
+        }
+
+        .gold-background {
+            background-color: #a08d31 !important;
+            box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11);
+        }
+
+        .black-background {
+            background-color: #2b2c27 !important;
+            box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11);
+        }
+
+        .burgundy-background {
+            background-color: #8A1538 !important;
+            box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11);
+        }
+
+        .news-slider {
+            height: 13.5rem;
+            overflow: hidden;
+        }
+
+        #newsList {
+            position: absolute;
+            inset: 0;
+        }
+
+        .news-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.45s ease;
+        }
+
+        .news-slide.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .news-slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 9999px;
+            background: rgba(0, 98, 108, 0.85);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+        }
+
+        .news-slider-btn:hover {
+            background: #00474F;
+        }
+
+        .news-slider-dots {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 0.6rem;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+
+        .news-dot {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .news-dot.is-active {
+            width: 1rem;
+            background: #fff;
+        }
+
+        [dir="ltr"] #newsPrev i {
+            transform: scaleX(-1);
+        }
+
+        [dir="ltr"] #newsNext i {
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+
+<body
+    class="font-vq font-normal text-slate-800 bg-slate-100 min-h-screen flex flex-col antialiased selection:bg-vq-amber selection:text-white"
+    id="appBody">
+
+    <!-- PAGE HEADER (BRD 5.1) -->
+    <header id="siteHeader" class="sticky top-0 z-50 text-white border-b shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between gap-3 min-h-16 py-2">
+
+                <!-- 5.1.1 Visit Qatar Logo → Homepage -->
+                <a href="#designOption1" id="homeLogo" class="shrink-0 flex items-center p-1.5 rounded-xl"
+                    title="Visit Qatar" data-i18n-title="logoHome">
+                    <img src="https://visitqatar.com/etc.clientlibs/visitqatar/clientlibs/clientlib-static/resources/img/vq-logo-white.svg"
+                        alt="Visit Qatar" class="h-11">
+                </a>
+
+                <div class="flex items-center gap-2 sm:gap-3 flex-1 justify-end min-w-0">
+
+                    <!-- 5.1.6 Search -->
+                    <div class="relative flex-1 max-w-md min-w-0" id="searchWrap">
+                        <label for="globalSearch" class="sr-only" data-i18n="searchLabel">بحث</label>
+                        <input id="globalSearch" type="search" autocomplete="off"
+                            data-i18n-placeholder="searchPlaceholder" placeholder="ابحث في كل محتوى البوابة..."
+                            class="w-full py-2 ps-3 pe-10 text-xs bg-white/15 border border-white/25 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-vq-amber focus:bg-white/25 transition">
+                        <button type="button" id="searchSubmit"
+                            class="absolute top-1/2 -translate-y-1/2 end-2.5 text-white/80 hover:text-white"
+                            aria-label="Search">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                        </button>
+
+                        <div id="searchPanel"
+                            class="hidden bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+                            <div class="p-3 border-b border-slate-100 bg-slate-50">
+                                <p class="text-[10px] font-medium text-slate-500 mb-2" data-i18n="searchFiltersTitle">
+                                    عوامل التصفية</p>
+                                <div class="flex flex-wrap gap-1.5" id="searchFilters">
+                                    <button type="button" data-filter="all" data-i18n="filterAll"
+                                        class="search-filter is-active px-2.5 py-1 rounded-full text-[10px] font-medium bg-vq-teal text-white">الكل</button>
+                                    <button type="button" data-filter="pages" data-i18n="filterPages"
+                                        class="search-filter px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">صفحات</button>
+                                    <button type="button" data-filter="people" data-i18n="filterPeople"
+                                        class="search-filter px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">أشخاص</button>
+                                    <button type="button" data-filter="documents" data-i18n="filterDocuments"
+                                        class="search-filter px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">مستندات</button>
+                                    <button type="button" data-filter="images" data-i18n="filterImages"
+                                        class="search-filter px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">صور</button>
+                                    <button type="button" data-filter="videos" data-i18n="filterVideos"
+                                        class="search-filter px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">فيديو</button>
+                                </div>
+                            </div>
+                            <div class="max-h-72 overflow-y-auto divide-y divide-slate-100" id="searchResults"></div>
+                        </div>
+                    </div>
+
+                    <!-- 5.1.4 Font Size -->
+                    <div class="flex items-center rounded-xl overflow-hidden shrink-0" title="Font size">
+                        <button type="button" id="decreaseFont" class="header-chip w-8 h-8 text-[10px] font-medium"
+                            data-i18n-title="decreaseFont" title="تصغير الخط">A−</button>
+                        <button type="button" id="increaseFont"
+                            class="header-chip w-8 h-8 text-sm font-medium border-s-0" data-i18n-title="increaseFont"
+                            title="تكبير الخط">A+</button>
+                    </div>
+
+                    <!-- 5.1.2 Language Switcher -->
+                    <div class="flex items-center rounded-xl overflow-hidden shrink-0" role="group"
+                        aria-label="Language">
+                        <button type="button" id="langAr"
+                            class="header-chip is-active px-2.5 h-8 text-[11px] font-medium">AR</button>
+                        <button type="button" id="langEn"
+                            class="header-chip px-2.5 h-8 text-[11px] font-medium">EN</button>
+                    </div>
+
+                    <!-- 5.1.3 Current User + 5.1.5 User Picture -->
+                    <div class="flex items-center gap-2 shrink-0 ps-1 sm:ps-2 border-s border-white/20">
+                        <img id="headerUserPic"
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+                            alt="User"
+                            onerror="this.onerror=null;this.src='https://placehold.co/80x80/00626C/FFFFFF?text=User';"
+                            class="w-9 h-9 rounded-xl object-cover border border-white/40 shadow-sm">
+                        <div class="hidden md:block leading-tight text-start">
+                            <div class="text-xs font-medium text-white" data-i18n="userName">جاسم الخاطر</div>
+                            <div class="text-[10px] text-white/85" data-i18n="userTitle">أخصائي التحول الرقمي</div>
+                            <div class="text-[10px] text-white/70" data-i18n="userDept">إدارة تقنية المعلومات</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- OPTION 1: REFINED BASELINE (DIRECT ENHANCEMENT OF ORIGINAL PORTAL)        -->
+    <!-- ========================================================================= -->
+    <main id="designOption1" class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+
+        <!-- Main 3-Column Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- RIGHT SIDEBAR (Main Intranet Nav & Support) - Span 3 -->
+            <aside class="lg:col-span-3 space-y-6">
+
+                <!-- COMPONENT 2: MAIN NAVIGATION MENU -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 relative">
+                    <nav class="space-y-1">
+                        <a href="#designOption1"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-vq-teal bg-vq-teal/10 rounded-xl border-r-4 border-vq-teal">
+                            <i class="fa-solid fa-house w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navHome">الصفحة الرئيسية</span>
+                        </a>
+                        <a href="pages/departments.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-sitemap w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navDepts">الإدارات</span>
+                        </a>
+                        <a href="pages/announcements.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-bullhorn w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navAnnouncements">الإعلانات</span>
+                        </a>
+                        <a href="pages/discounts.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-tags w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navDiscounts">الخصومات</span>
+                        </a>
+                        <a href="pages/certificates.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-certificate w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navCerts">شهادات قطر للسياحة</span>
+                        </a>
+                        <a href="pages/awards.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-award w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navAwards">الجوائز المستلمة</span>
+                        </a>
+                        <a href="pages/events.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-calendar-days w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navEvents">الفعاليات</span>
+                        </a>
+                        <a href="pages/news.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-newspaper w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navNews">الأخبار</span>
+                        </a>
+                        <a href="pages/surveys.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-square-poll-vertical w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navSurveys">الاستبيانات</span>
+                        </a>
+                        <a href="pages/policies.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-folder-open w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navPolicies">السياسات والإجراءات والنماذج</span>
+                        </a>
+                        <a href="pages/hotlines.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-headset w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navHotlines">الخطوط الساخنة</span>
+                        </a>
+                        <a href="pages/courses.html"
+                            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-vq-teal hover:bg-vq-teal/10 rounded-xl transition">
+                            <i class="fa-solid fa-graduation-cap w-5 text-center text-vq-teal"></i> <span
+                                data-i18n="navCourses">الدورات</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- HOMEPAGE CENTER (BRD 6.1–6.5) -->
+            <section class="lg:col-span-6 space-y-6">
+
+                <!-- 6.1 Latest Updates — Announcements -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 relative">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-vq-teal text-white p-1.5 rounded-lg text-xs"><i
+                                    class="fa-solid fa-bullhorn"></i></span>
+                            <div>
+                                <h3 class="text-sm font-medium text-slate-800" data-i18n="hpUpdates">آخر التعاميم</h3>
+                            </div>
+                        </div>
+                        <a href="pages/announcements.html" class="text-xs text-vq-teal hover:underline font-medium"
+                            data-i18n="showAll">عرض الكل ←</a>
+                    </div>
+
+                    <div id="updatesList" class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </div>
+
+                <!-- 6.2 + 6.3 QC Events / VQ Calendar — one section, list or calendar -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="text-xs font-medium text-slate-800 flex items-center gap-1.5 min-w-0">
+                            <i id="eventsSectionIcon" class="fa-solid fa-calendar-check text-vq-teal"></i>
+                            <span id="eventsSectionTitle" data-i18n="hpEvents">فعاليات قطر للسياحة</span>
+                        </h3>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <div class="flex rounded-lg overflow-hidden border border-slate-200" role="group"
+                                aria-label="Events view">
+                                <button type="button" data-events-view="list"
+                                    class="events-view-btn is-active px-2.5 py-1 text-[10px] font-medium bg-vq-teal text-white">
+                                    <i class="fa-solid fa-list"></i>
+                                    <span class="ms-1" data-i18n="hpViewList">قائمة</span>
+                                </button>
+                                <button type="button" data-events-view="calendar"
+                                    class="events-view-btn px-2.5 py-1 text-[10px] font-medium bg-white text-slate-600">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <span class="ms-1" data-i18n="hpViewCalendar">تقويم</span>
+                                </button>
+                            </div>
+                            <a href="pages/events.html" class="text-xs text-vq-teal hover:underline font-medium"
+                                data-i18n="showMore">عرض المزيد</a>
+                        </div>
+                    </div>
+
+                    <div id="eventsViewList">
+                        <div class="divide-y divide-slate-100" id="eventsList"></div>
+                    </div>
+
+                    <div id="eventsViewCalendar" class="hidden">
+                        <div class="px-3 pt-2 text-[10px] text-slate-400" data-i18n="hpCalendarSync">مزامنة SeaTable حسب
+                            صلاحيات الإدارة</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
+                            <div>
+                                <div class="flex items-center justify-between mb-2 text-xs font-medium text-slate-700">
+                                    <span data-i18n="hpCalMonth">سبتمبر 2026</span>
+                                    <span class="text-vq-teal"><i class="fa-solid fa-calendar-days"></i></span>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center text-[10px] text-slate-400 mb-1"
+                                    id="calendarWeekdays"></div>
+                                <div class="grid grid-cols-7 gap-1 text-center text-[11px]">
+                                    <span class="p-1.5 text-slate-300">31</span>
+                                    <span class="p-1.5 rounded-lg bg-vq-teal/10 text-vq-teal font-medium">1</span>
+                                    <span class="p-1.5">2</span><span class="p-1.5">3</span><span class="p-1.5">4</span>
+                                    <span class="p-1.5 rounded-lg bg-vq-amber/20 text-vq-amber font-medium">5</span>
+                                    <span class="p-1.5">6</span><span class="p-1.5">7</span><span class="p-1.5">8</span>
+                                    <span class="p-1.5 rounded-lg bg-vq-teal text-white font-medium">9</span>
+                                    <span class="p-1.5">10</span><span class="p-1.5">11</span>
+                                    <span class="p-1.5 rounded-lg bg-vq-teal text-white font-medium">12</span>
+                                    <span class="p-1.5">13</span><span class="p-1.5">14</span><span class="p-1.5">15</span>
+                                    <span class="p-1.5">16</span><span class="p-1.5">17</span><span class="p-1.5">18</span>
+                                    <span class="p-1.5">19</span><span class="p-1.5">20</span><span class="p-1.5">21</span>
+                                    <span class="p-1.5">22</span><span class="p-1.5">23</span><span class="p-1.5">24</span>
+                                    <span class="p-1.5">25</span><span class="p-1.5">26</span><span class="p-1.5">27</span>
+                                    <span class="p-1.5">28</span><span class="p-1.5">29</span><span class="p-1.5">30</span>
+                                </div>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden bg-slate-200 min-h-[180px]">
+                                <img src="https://images.unsplash.com/photo-1562832135-14a35d690395?auto=format&fit=crop&w=800&q=80"
+                                    alt="Doha map" class="w-full h-full object-cover min-h-[180px]"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/600x300/00626C/FFFFFF?text=VQ+Map';">
+                                <div
+                                    class="absolute bottom-2 inset-x-2 bg-white/90 rounded-lg p-2 text-[10px] text-slate-700">
+                                    <i class="fa-solid fa-location-dot text-vq-ruby ml-1"></i>
+                                    <span data-i18n="hpCalendarMap">عرض مواقع أنشطة الإدارات حسب الصلاحيات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6.4 Latest Discounts -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                        <h3 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-tags text-vq-teal"></i> <span data-i18n="hpDiscounts">أحدث
+                                الخصومات</span>
+                        </h3>
+                        <a href="pages/discounts.html" class="text-xs text-vq-teal hover:underline font-medium"
+                            data-i18n="showMore">عرض المزيد</a>
+                    </div>
+                    <div class="p-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="relative rounded-xl overflow-hidden bg-slate-800 min-h-[110px] flex items-end p-3" role="link" style="cursor:pointer" onclick="location.href='pages/discount-details.html?id=pearl-gewan'">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
+                                alt="" class="absolute inset-0 w-full h-full object-cover opacity-80"
+                                onerror="this.src='https://placehold.co/600x200/8A1538/FFFFFF?text=25%25';">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
+                            </div>
+                            <span
+                                class="absolute top-2 right-2 bg-vq-ruby text-white text-[10px] font-medium px-2 py-0.5 rounded-lg">25%</span>
+                            <div class="relative z-10 text-white">
+                                <h5 class="text-xs font-medium">منتجعات اللؤلؤة وجيوان</h5>
+                                <p class="text-[10px] text-slate-200">12 سبتمبر 2026</p>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden bg-slate-800 min-h-[110px] flex items-end p-3" role="link" style="cursor:pointer" onclick="location.href='pages/discount-details.html?id=restaurants'">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80"
+                                alt="" class="absolute inset-0 w-full h-full object-cover opacity-80"
+                                onerror="this.src='https://placehold.co/600x200/D76800/FFFFFF?text=20%25';">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
+                            </div>
+                            <span
+                                class="absolute top-2 right-2 bg-vq-amber text-white text-[10px] font-medium px-2 py-0.5 rounded-lg">20%</span>
+                            <div class="relative z-10 text-white">
+                                <h5 class="text-xs font-medium">المطاعم والمقاهي</h5>
+                                <p class="text-[10px] text-slate-200">10 سبتمبر 2026</p>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden bg-slate-800 min-h-[110px] flex items-end p-3" role="link" style="cursor:pointer" onclick="location.href='pages/discount-details.html?id=culture-tickets'">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80"
+                                alt="" class="absolute inset-0 w-full h-full object-cover opacity-80"
+                                onerror="this.src='https://placehold.co/600x200/00626C/FFFFFF?text=15%25';">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
+                            </div>
+                            <span
+                                class="absolute top-2 right-2 bg-vq-teal text-white text-[10px] font-medium px-2 py-0.5 rounded-lg">15%</span>
+                            <div class="relative z-10 text-white">
+                                <h5 class="text-xs font-medium">تذاكر الفعاليات الثقافية</h5>
+                                <p class="text-[10px] text-slate-200">06 سبتمبر 2026</p>
+                            </div>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden bg-slate-800 min-h-[110px] flex items-end p-3" role="link" style="cursor:pointer" onclick="location.href='pages/discount-details.html?id=fitness'">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"
+                                alt="" class="absolute inset-0 w-full h-full object-cover opacity-80"
+                                onerror="this.src='https://placehold.co/600x200/00626C/FFFFFF?text=30%25';">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
+                            </div>
+                            <span
+                                class="absolute top-2 right-2 bg-vq-teal text-white text-[10px] font-medium px-2 py-0.5 rounded-lg">30%</span>
+                            <div class="relative z-10 text-white">
+                                <h5 class="text-xs font-medium">نوادي اللياقة البدنية</h5>
+                                <p class="text-[10px] text-slate-200">02 سبتمبر 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latest News slider (last homepage section) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                        <h3 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-newspaper text-vq-teal"></i>
+                            <span data-i18n="hpNews">آخر الأخبار</span>
+                        </h3>
+                        <a href="pages/news.html" class="text-xs text-vq-teal hover:underline font-medium"
+                            data-i18n="showMore">عرض المزيد</a>
+                    </div>
+                    <div class="relative news-slider" id="newsSlider">
+                        <div id="newsList"></div>
+                        <button type="button" id="newsPrev" class="news-slider-btn start-2" aria-label="Previous">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button type="button" id="newsNext" class="news-slider-btn end-2" aria-label="Next">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <div id="newsDots" class="news-slider-dots"></div>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <!-- LEFT RAIL (BRD 6.6–6.9) -->
+            <aside class="lg:col-span-3 space-y-6">
+
+                <!-- 6.6 Weather Forecast -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                        <h4 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-cloud-sun text-vq-teal"></i> <span data-i18n="hpWeather">توقعات
+                                الطقس</span>
+                        </h4>
+                        <span class="text-[10px] text-slate-400">الدوحة</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-vq-teal/5 rounded-xl p-3 mb-3">
+                        <div>
+                            <div class="text-2xl font-medium text-vq-teal">36°</div>
+                            <div class="text-[11px] text-slate-500" data-i18n="hpWeatherToday">اليوم — مشمس</div>
+                        </div>
+                        <i class="fa-solid fa-sun text-vq-amber text-3xl"></i>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+                        <div class="bg-slate-50 rounded-lg p-1.5"><span class="block text-slate-400">غداً</span><i
+                                class="fa-solid fa-sun text-vq-amber my-1"></i><span class="font-medium">37°</span>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5"><span class="block text-slate-400">ثلاثاء</span><i
+                                class="fa-solid fa-cloud-sun text-vq-teal my-1"></i><span class="font-medium">35°</span>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5"><span class="block text-slate-400">أربعاء</span><i
+                                class="fa-solid fa-cloud text-slate-400 my-1"></i><span class="font-medium">34°</span>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5"><span class="block text-slate-400">خميس</span><i
+                                class="fa-solid fa-sun text-vq-amber my-1"></i><span class="font-medium">36°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6.7 Prayer Time -->
+                <div class="bg-gradient-to-br from-vq-teal to-vq-teal-dark rounded-2xl text-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
+                        <h4 class="text-xs font-medium flex items-center gap-1.5">
+                            <i class="fa-solid fa-mosque text-amber-300"></i> <span data-i18n="hpPrayer">مواقيت
+                                الصلاة</span>
+                        </h4>
+                        <span class="text-[10px] bg-vq-amber text-white px-2 py-0.5 rounded-lg"
+                            data-i18n="hpNextPrayer">التالي: الظهر</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
+                        <div class="bg-white/5 rounded-lg px-1.5 py-2">
+                            <span class="block text-white/70">الفجر</span>
+                            <span class="font-medium mt-1 block">04:15</span>
+                        </div>
+                        <div class="bg-white/5 rounded-lg px-1.5 py-2">
+                            <span class="block text-white/70">الشروق</span>
+                            <span class="font-medium mt-1 block">05:19</span>
+                        </div>
+                        <div class="bg-vq-amber rounded-lg px-1.5 py-2 font-medium">
+                            <span class="block text-amber-100">الظهر</span>
+                            <span class="mt-1 block">11:30</span>
+                        </div>
+                        <div class="bg-white/5 rounded-lg px-1.5 py-2">
+                            <span class="block text-white/70">العصر</span>
+                            <span class="font-medium mt-1 block">14:59</span>
+                        </div>
+                        <div class="bg-white/5 rounded-lg px-1.5 py-2">
+                            <span class="block text-white/70">المغرب</span>
+                            <span class="font-medium mt-1 block">17:40</span>
+                        </div>
+                        <div class="bg-white/5 rounded-lg px-1.5 py-2">
+                            <span class="block text-white/70">العشاء</span>
+                            <span class="font-medium mt-1 block">19:10</span>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-white/60 mt-3" data-i18n="hpPrayerSource">تُحدَّث تلقائياً وفق الاتحاد
+                        الإسلامي العالمي</p>
+                </div>
+
+                <!-- 6.8 Software & System Links -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                        <h4 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-laptop-code text-vq-teal"></i> <span data-i18n="hpSystems">روابط
+                                الأنظمة والبرامج</span>
+                        </h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <a href="https://visitqatar.com" target="_blank" rel="noopener noreferrer"
+                            class="flex flex-col items-center p-2.5 rounded-xl bg-slate-50 hover:bg-vq-teal/5 border border-slate-100 transition">
+                            <i class="fa-solid fa-desktop text-vq-teal text-base mb-1"></i>
+                            <span class="text-[11px] text-center">بوابة المستكشف</span>
+                        </a>
+                        <a href="https://www.office.com" target="_blank" rel="noopener noreferrer"
+                            class="flex flex-col items-center p-2.5 rounded-xl bg-slate-50 hover:bg-vq-teal/5 border border-slate-100 transition">
+                            <i class="fa-solid fa-users text-vq-teal text-base mb-1"></i>
+                            <span class="text-[11px] text-center">نظام موارد HR</span>
+                        </a>
+                        <a href="https://teams.microsoft.com" target="_blank" rel="noopener noreferrer"
+                            class="flex flex-col items-center p-2.5 rounded-xl bg-slate-50 hover:bg-vq-teal/5 border border-slate-100 transition">
+                            <i class="fa-solid fa-headset text-vq-teal text-base mb-1"></i>
+                            <span class="text-[11px] text-center">نظام تواصل</span>
+                        </a>
+                        <a href="https://login.microsoftonline.com" target="_blank" rel="noopener noreferrer"
+                            class="flex flex-col items-center p-2.5 rounded-xl bg-slate-50 hover:bg-vq-teal/5 border border-slate-100 transition">
+                            <i class="fa-solid fa-file-contract text-vq-teal text-base mb-1"></i>
+                            <span class="text-[11px] text-center">التراخيص الإلكترونية</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6.9 Message, Vision & Mission -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100">
+                        <h4 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-bullseye text-vq-teal"></i> <span data-i18n="hpVision">الرسالة والرؤية
+                                والمهمة</span>
+                        </h4>
+                    </div>
+                    <div class="p-3 space-y-3">
+                        <article>
+                            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80"
+                                alt="Vision" class="w-full h-20 object-cover rounded-xl mb-2"
+                                onerror="this.src='https://placehold.co/400x160/00626C/FFFFFF?text=Vision';">
+                            <h5 class="text-xs font-medium text-vq-teal" data-i18n="hpVisionTitle">رؤيتنا</h5>
+                            <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed" data-i18n="hpVisionText">تعزيز
+                                مكانة قطر كوجهة أولى للسياحة العالمية والمحلية والتي تتميز بجودة خدماتها.</p>
+                        </article>
+                        <article>
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80"
+                                alt="Mission" class="w-full h-20 object-cover rounded-xl mb-2"
+                                onerror="this.src='https://placehold.co/400x160/8A1538/FFFFFF?text=Mission';">
+                            <h5 class="text-xs font-medium text-vq-teal" data-i18n="hpMissionTitle">مهمتنا</h5>
+                            <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed" data-i18n="hpMissionText">تنظيم
+                                وتطوير السياحة في قطر من خلال عرض ثقافتها الغنية ووجهاتها المميزة.</p>
+                        </article>
+                        <article>
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
+                                alt="Message" class="w-full h-20 object-cover rounded-xl mb-2"
+                                onerror="this.src='https://placehold.co/400x160/D76800/FFFFFF?text=Message';">
+                            <h5 class="text-xs font-medium text-vq-teal" data-i18n="hpMessageTitle">رسالتنا</h5>
+                            <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed" data-i18n="hpMessageText">نصنع
+                                تجارب تبقى في الذاكرة ونمكّن فرق العمل بخدمات رقمية موحدة.</p>
+                        </article>
+                    </div>
+                </div>
+
+
+
+                <!-- 6.10 Visit Qatar Structure & Guide -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100">
+                        <h4 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sitemap text-vq-teal"></i> <span data-i18n="hpStructure">الهيكل
+                                التنظيمي والدليل</span>
+                        </h4>
+                    </div>
+                    <div class="p-3">
+                        <a href="pages/structure.html" class="block group">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
+                                alt="VQ Structure"
+                                class="w-full h-28 object-cover rounded-xl group-hover:opacity-90 transition"
+                                onerror="this.src='https://placehold.co/800x300/00626C/FFFFFF?text=VQ+Structure';">
+                        </a>
+                        <p class="text-[11px] text-slate-600 mt-2 leading-relaxed" data-i18n="hpStructureText">انقر على
+                            الصورة لفتح ملف الهيكل التنظيمي لقطر للسياحة. يُضاف الملف ويُدار بواسطة المسؤول.</p>
+                    </div>
+                </div>
+
+                <!-- 6.12 Hotlines -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-3 bg-slate-50 border-b border-slate-100">
+                        <h4 class="text-xs font-medium text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-headset text-vq-teal"></i> <span data-i18n="hpHotlines">الخطوط
+                                الساخنة</span>
+                        </h4>
+                    </div>
+                    <div class="p-3">
+                        <p class="text-[11px] text-slate-500 leading-relaxed" data-i18n="hpHotlinesText">أرقام الطوارئ
+                            وجهات الاتصال لرؤساء الإدارات في الحالات العاجلة، مع بطاقات معلومات ووصول سريع.</p>
+                        <button type="button" onclick="location.href='pages/hotlines.html'"
+                            class="mt-3 w-full text-xs bg-vq-teal hover:bg-vq-teal-dark text-white font-medium px-4 py-2 rounded-xl transition"
+                            data-i18n="hpHotlinesBtn">فتح شاشة الخطوط الساخنة</button>
+                    </div>
+                </div>
+            </aside>
+
+
+
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- OPTION 2: MODERN EXECUTIVE DASHBOARD (BENTO GRID LAYOUT)                  -->
+    <!-- ========================================================================= -->
+    <main id="designOption2" class="hidden flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+        <!-- Header Strip -->
+        <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-vq-teal flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-black text-slate-800">لوحة بوابتك التفاعلية (Bento Grid)</h2>
+                    <p class="text-xs text-slate-500">لوحة تفاعلية متكاملة للأنظمة والمعلومات المؤسسية</p>
+                </div>
+            </div>
+
+            <!-- Department Quick Pills Filter -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 text-xs">
+                <span
+                    class="bg-vq-teal text-white font-bold px-3 py-1.5 rounded-xl cursor-pointer shadow-xs">الكل</span>
+                <span
+                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-xl cursor-pointer transition">الموارد
+                    البشرية</span>
+                <span
+                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-xl cursor-pointer transition">التسويق</span>
+                <span
+                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-3 py-1.5 rounded-xl cursor-pointer transition">تكنولوجيا
+                    المعلومات</span>
+            </div>
+        </div>
+
+        <!-- Bento Grid 12 Columns Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+
+            <!-- BENTO BOX 1: Main News Hero Carousel (Span 8) -->
+            <div
+                class="md:col-span-8 bg-slate-900 rounded-3xl overflow-hidden relative shadow-md flex flex-col justify-end min-h-[320px] group">
+                <a href="#"
+                    class="absolute top-4 left-4 z-20 text-xs text-amber-300 hover:underline font-bold bg-black/40 px-3 py-1 rounded-full backdrop-blur-md border border-white/20"
+                    data-i18n="showAll">عرض الكل &larr;</a>
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
+                    alt="Qatar Hospitality"
+                    class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+
+                <div class="relative p-6 md:p-8 z-10 text-white space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="bg-vq-ruby text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">الخبر
+                            الرئيسي</span>
+                        <span class="text-xs text-slate-300"><i class="fa-regular fa-clock ml-1"></i> منذ ساعتين</span>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-black leading-tight text-white">
+                        قطر للسياحة تُطلق الشراكة الاستراتيجية الجديدة لتعزيز خدمات الضيافة العالمية
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-300 line-clamp-2">
+                        ضمن إطار رؤية قطر 2030، تواصل قطر للسياحة تقديم البرامج التدريبية المتقدمة لتمكين الكوادر
+                        الوطنية والارتقاء بالخدمات الميدانية.
+                    </p>
+                    <div class="pt-2 flex items-center gap-3">
+                        <button
+                            class="bg-vq-amber hover:bg-vq-amber-light text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+                            اقرأ التفاصيل
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BENTO BOX 2: Live Weather & Prayer Widget (Span 4) -->
+            <div
+                class="md:col-span-4 bg-gradient-to-br from-vq-amber to-amber-700 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
+                <a href="#"
+                    class="absolute top-4 left-4 z-20 text-xs text-white hover:underline font-bold bg-black/20 px-3 py-1 rounded-full backdrop-blur-sm"
+                    data-i18n="showAll">عرض الكل &larr;</a>
+
+                <div class="mt-4">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-white/20 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">طقس الدوحة
+                            اليوم</span>
+                        <i class="fa-solid fa-location-dot text-amber-200"></i>
+                    </div>
+                    <div class="mt-4 flex items-baseline gap-2">
+                        <span class="text-5xl font-black">36°</span>
+                        <span class="text-base text-amber-100 font-semibold">مشمس وحار</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-white/20 space-y-2">
+                    <div class="flex items-center justify-between text-xs font-bold">
+                        <span>الصلاة القادمة: الظهر</span>
+                        <span class="bg-white text-vq-amber px-2 py-0.5 rounded-md">11:30 AM</span>
+                    </div>
+                    <div class="w-full bg-black/20 h-2 rounded-full overflow-hidden">
+                        <div class="bg-white h-full w-3/4 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BENTO BOX 3: Circulars List (Span 4) -->
+            <div
+                class="md:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between relative">
+                <div>
+                    <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-vq-ruby"></span>
+                            <h4 class="font-bold text-slate-800 text-sm">أحدث التعاميم الإدارية</h4>
+                        </div>
+                        <a href="#" class="text-xs text-vq-teal hover:underline font-bold" data-i18n="showAll">عرض الكل
+                            &larr;</a>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div
+                            class="p-3 bg-slate-50 hover:bg-rose-50/50 rounded-2xl border border-slate-100 transition cursor-pointer">
+                            <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                                <span class="text-vq-ruby font-bold">تعميم درجات الحرارة</span>
+                                <span>28 أغسطس</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-slate-800">إرشادات التكييف وترشيد الطاقة</h5>
+                        </div>
+
+                        <div
+                            class="p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl border border-slate-100 transition cursor-pointer">
+                            <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                                <span class="text-vq-teal font-bold">الموارد البشرية</span>
+                                <span>15 أغسطس</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-slate-800">تحديث مواعيد العمل الرسمية</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showModal('circularModal')"
+                    class="mt-4 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2.5 rounded-xl transition">
+                    تصفح كافة التعاميم
+                </button>
+            </div>
+
+            <!-- BENTO BOX 4: Quick Scope Components Grid (Span 8) -->
+            <div class="md:col-span-8 bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                    <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-grip text-vq-teal"></i> دليل الخدمات والقطاعات المعتمدة
+                    </h4>
+                    <a href="#" class="text-xs text-vq-teal hover:underline font-bold" data-i18n="showAll">عرض الكل
+                        &larr;</a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-vq-teal text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الأقسام العامة</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-vq-amber text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">التقويم والفعاليات</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-vq-ruby text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الخصومات</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الشهادات VQ</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-sky-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sitemap"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الإدارات</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-poll"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الاستطلاعات</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-photo-film"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">المركز الإعلامي</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-teal-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">الدورات التدريبية</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">ربط Outlook/Teams</span>
+                    </div>
+
+                    <div
+                        class="p-3 rounded-2xl bg-slate-50 hover:bg-vq-teal/10 border border-slate-100 hover:border-vq-teal/30 text-center transition cursor-pointer group">
+                        <div
+                            class="w-10 h-10 mx-auto rounded-xl bg-amber-600 text-white flex items-center justify-center text-lg shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                        <span class="block text-xs font-bold text-slate-800 mt-2">دليل الوثائق</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BENTO BOX 5: Corporate Perks & Discounts Carousel (Span 4) -->
+            <div
+                class="md:col-span-4 bg-gradient-to-br from-vq-ruby to-rose-950 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold">خصومات الفنادق والمطاعم</h4>
+                        <a href="#" class="text-xs text-rose-200 hover:underline font-bold" data-i18n="showAll">عرض الكل
+                            &larr;</a>
+                    </div>
+                    <p class="text-xs text-rose-200 mt-1">استمتع بخصم يصل إلى 25% لجميع موظفي قطر للسياحة في وجهات
+                        اللؤلؤة وتل كارتييه.</p>
+                </div>
+                <div class="mt-6 flex items-center justify-between pt-4 border-t border-white/20">
+                    <span class="text-xs font-semibold text-rose-300">رمز التخفيض: VQ2026</span>
+                    <button class="bg-white text-vq-ruby text-xs font-bold px-3 py-1.5 rounded-lg shadow">نسخ
+                        الرمز</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- OPTION 3: IMMERSIVE BRAND PORTAL (MEDIA-FIRST & ARCH MOTIFS)              -->
+    <!-- ========================================================================= -->
+    <main id="designOption3" class="hidden flex-1 w-full space-y-8 pb-12">
+
+        <!-- Hero Section with Archway Framing -->
+        <div class="relative bg-slate-900 text-white min-h-[460px] flex items-center justify-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1578895210405-907db48a7812?auto=format&fit=crop&w=1600&q=80"
+                alt="Doha Waterfront" class="absolute inset-0 w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-vq-teal/70 via-slate-950/80 to-slate-100"></div>
+
+            <!-- Floating Top Dock Widget -->
+            <div
+                class="absolute top-6 mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2 flex items-center gap-6 text-xs text-white z-20 shadow-lg">
+                <span class="flex items-center gap-1.5 font-semibold">
+                    <i class="fa-solid fa-sun text-amber-400"></i> الدوحة 36°C
+                </span>
+                <span class="h-3 w-px bg-white/30"></span>
+                <span class="flex items-center gap-1.5 font-semibold">
+                    <i class="fa-solid fa-mosque text-amber-300"></i> الصلاة القادمة: الظهر (11:30)
+                </span>
+                <span class="h-3 w-px bg-white/30"></span>
+                <span class="flex items-center gap-1.5 font-semibold text-emerald-300">
+                    <i class="fa-solid fa-circle text-[8px]"></i> متصل بـ Teams
+                </span>
+            </div>
+
+            <!-- Hero Arch Card content -->
+            <div class="relative z-10 max-w-4xl mx-auto text-center px-4 pt-16">
+                <div
+                    class="inline-block bg-vq-amber/30 text-amber-200 border border-vq-amber/40 backdrop-blur-md px-4 py-1 rounded-full text-xs font-bold mb-4">
+                    بوابة قطر للسياحة الرقمية الموحدة
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
+                    نصنع لحظات تبقى في الذاكرة
+                </h1>
+                <p class="text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed font-light">
+                    منصة العمل الرقمية لقطر للسياحة: تمكين الموظفين، تبادل المعرفة، ومتابعة آخر المستجدات والخدمات
+                    الموحدة.
+                </p>
+
+                <!-- Search Pill Bar -->
+                <div
+                    class="mt-8 max-w-xl mx-auto bg-white rounded-2xl p-2 shadow-2xl flex items-center gap-2 border border-slate-200">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 mr-3 text-sm"></i>
+                    <input type="text" placeholder="ابحث عن نموذج، تعميم، قسم، أو فعالية..."
+                        class="w-full text-xs md:text-sm text-slate-800 placeholder-slate-400 focus:outline-none">
+                    <button
+                        class="bg-vq-teal hover:bg-vq-teal-dark text-white text-xs font-bold px-6 py-3 rounded-xl transition shadow">
+                        بحث
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Container with Arch Motif Cards -->
+        <div class="max-w-7xl mx-auto px-4 md:px-6 space-y-10 -mt-10 relative z-20">
+
+            <!-- Category Arch Cards Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                <div
+                    class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition group text-center border-t-4 border-vq-teal">
+                    <div
+                        class="w-12 h-12 mx-auto rounded-2xl bg-vq-teal/10 text-vq-teal flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-scroll"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mt-3">التعاميم والقرارات</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">تصفح القرارات واللوائح الحديثة</p>
+                    <a href="#" class="text-[11px] text-vq-teal hover:underline font-bold block mt-2"
+                        data-i18n="showAll">عرض الكل &larr;</a>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition group text-center border-t-4 border-vq-amber">
+                    <div
+                        class="w-12 h-12 mx-auto rounded-2xl bg-amber-50 text-vq-amber flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-calendar-day"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mt-3">أجندة الفعاليات والأنشطة</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">المؤتمرات والمعارض القادمة</p>
+                    <a href="#" class="text-[11px] text-vq-amber hover:underline font-bold block mt-2"
+                        data-i18n="showAll">عرض الكل &larr;</a>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition group text-center border-t-4 border-vq-ruby">
+                    <div
+                        class="w-12 h-12 mx-auto rounded-2xl bg-rose-50 text-vq-ruby flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-photo-film"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mt-3">مكتبة الوسائط الإعلامية</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">صور وفيديوهات الهوية الرسمية</p>
+                    <a href="#" class="text-[11px] text-vq-ruby hover:underline font-bold block mt-2"
+                        data-i18n="showAll">عرض الكل &larr;</a>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100 hover:shadow-xl transition group text-center border-t-4 border-emerald-600">
+                    <div
+                        class="w-12 h-12 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mt-3">الشهادات والاعتمادات</h3>
+                    <p class="text-[11px] text-slate-500 mt-1">إصدار ومتابعة شهادات الجودة</p>
+                    <a href="#" class="text-[11px] text-emerald-600 hover:underline font-bold block mt-2"
+                        data-i18n="showAll">عرض الكل &larr;</a>
+                </div>
+
+            </div>
+
+            <!-- Immersive Split Section: Visual Media & Official News -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- Main News Feature Span 8 -->
+                <div class="lg:col-span-8 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-6 pb-2 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-bold text-vq-teal uppercase tracking-widest">المركز الإخباري
+                                الصحفي</span>
+                            <h3 class="text-xl font-black text-slate-800 mt-1">تغطيات ومستجدات قطر للسياحة</h3>
+                        </div>
+                        <a href="#" class="text-xs font-bold text-vq-teal hover:underline" data-i18n="showAll">عرض الكل
+                            &larr;</a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"
+                                alt="Event" class="w-full h-48 object-cover rounded-2xl shadow-sm">
+                            <span
+                                class="text-[10px] bg-vq-ruby/10 text-vq-ruby font-bold px-2.5 py-0.5 rounded-full">ورشة
+                                عمل</span>
+                            <h4 class="font-bold text-slate-800 text-sm leading-snug">
+                                إطلاق الجلسة الثانية من البرنامج التدريبي لقيادات الضيافة
+                            </h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                استكمالاً لنجاح الجلسة التدريبية الافتتاحية، تعقد قطر للسياحة ورشة جديدة بالتعاون مع
+                                فوربس للسفر لتعزيز معايير الخدمة.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+                                alt="Event 2" class="w-full h-48 object-cover rounded-2xl shadow-sm">
+                            <span
+                                class="text-[10px] bg-vq-teal/10 text-vq-teal font-bold px-2.5 py-0.5 rounded-full">استراتيجية
+                                2026</span>
+                            <h4 class="font-bold text-slate-800 text-sm leading-snug">
+                                استعراض المبادرات السياحية للربع الثالث لعام 2026
+                            </h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                إبراز المقومات السياحية المتنوعة لدولة قطر واستعراض العروض المقدمة للزوار الإقليميين
+                                والدوليين.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Circulars & Media Sidebar Span 4 -->
+                <div class="lg:col-span-4 space-y-6">
+
+                    <!-- Circular Card with Direct Preview -->
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-circle-exclamation text-vq-ruby"></i>
+                                <span>آخر التعاميم الرسمية</span>
+                            </h4>
+                            <a href="#" class="text-xs text-vq-teal hover:underline font-bold" data-i18n="showAll">عرض
+                                الكل &larr;</a>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                            <span class="text-[10px] bg-vq-ruby text-white font-bold px-2 py-0.5 rounded-md">جديد</span>
+                            <h5 class="text-xs font-bold text-slate-800">تعميم بشأن التكييف والحرارة</h5>
+                            <p class="text-[11px] text-slate-500">يرجى من جميع الموظفين الالتزام بالتعليمات المرفقة
+                                للحفاظ على درجات الحرارة المناسبة.</p>
+                            <button onclick="showModal('circularModal')"
+                                class="mt-2 w-full bg-vq-teal text-white text-xs font-bold py-2 rounded-xl">
+                                معاينة التعميم (PDF)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Integration Badge Card -->
+                    <div
+                        class="bg-gradient-to-br from-slate-900 to-vq-teal p-6 rounded-3xl text-white shadow-md space-y-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                            <h5 class="text-xs font-bold">ربط متكامل مع Outlook & Teams</h5>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            تتوافق جميع الخدمات الرقمية المسلمة في هذه البوابة مع أعلى معايير الجودة والتصميم المؤسسي.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- PAGE FOOTER (BRD 5.3) -->
+    <footer id="siteFooter" class="mt-auto text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+
+                <!-- 5.3.1 Copyright -->
+                <p class="text-xs text-white/90 order-3 md:order-1">
+                    <span data-i18n="copyrightPrefix">جميع الحقوق محفوظة</span>
+                    © Visit Qatar <span id="copyrightYear"></span>
+                </p>
+
+                <!-- 5.3.2 Social Media Links -->
+                <div class="flex items-center gap-2 order-1 md:order-2" aria-label="Visit Qatar social media">
+                    <a class="footer-social" href="https://www.instagram.com/visitqatar/" target="_blank"
+                        rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a class="footer-social" href="https://www.facebook.com/VisitQatar" target="_blank"
+                        rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a class="footer-social" href="https://x.com/VisitQatar" target="_blank" rel="noopener noreferrer"
+                        title="X" aria-label="X">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a class="footer-social" href="https://www.youtube.com/@VisitQatar" target="_blank"
+                        rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a class="footer-social" href="https://www.tiktok.com/@visitqatar" target="_blank"
+                        rel="noopener noreferrer" title="TikTok" aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a class="footer-social" href="https://www.linkedin.com/company/visit-qatar" target="_blank"
+                        rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+                <!-- 5.3.3 Certificate Images -->
+                <div class="flex items-center gap-2 flex-wrap justify-center order-2 md:order-3">
+                    <span class="sr-only" data-i18n="footerCerts">شهادات قطر للسياحة</span>
+                    <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/00626C?text=VQ+Quality"
+                        alt="Visit Qatar Quality Certificate" title="VQ Quality">
+                    <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/8A1538?text=Safe+Travels"
+                        alt="Safe Travels Certificate" title="Safe Travels">
+                    <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/D76800?text=ISO"
+                        alt="ISO Certificate" title="ISO">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- COMMON MODAL 1: CIRCULAR PREVIEW MODAL                                   -->
+    <!-- ========================================================================= -->
+    <div id="circularModal"
+        class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
+            <div class="bg-vq-teal text-white p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-pdf text-2xl text-amber-300"></i>
+                    <div>
+                        <h3 class="font-bold text-sm">آخر التعاميم - قطر للسياحة</h3>
+                        <p class="text-xs text-slate-200">رقم التعميم: Circular-2026-88</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('circularModal')"
+                    class="text-white hover:text-amber-300 text-xl font-bold">&times;</button>
+            </div>
+
+            <div class="p-6 space-y-4 text-xs text-slate-700 leading-relaxed max-h-[60vh] overflow-y-auto">
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 font-bold">
+                    موضوع: التنبيه بشأن إعدادات أجهزة التكييف والتحكم في درجات الحرارة
+                </div>
+                <p>الزملاء الأعزاء،</p>
+                <p>للحفاظ على بيئة عمل مريحة وموفرة للطاقة في جميع مكاتب ومقرات قطر للسياحة، يرجى من الموظفين عدم تعديل
+                    أو إغلاق أجهزة التحكم في التكييف. درجة الحرارة الموصى بها مسبقاً تم ضبطها وفق المعايير المعتمدة.</p>
+                <p>في حال وجود أي ملاحظات أو صيانات طارئة، يرجى رفع تذكرة عبر نظام "تواصل" أو التواصل مع إدارة الخدمات
+                    العامة.</p>
+                <p class="font-bold mt-4">شاكرين حسن تعاونكم،<br>إدارة الخدمات العامة والموارد البشرية</p>
+            </div>
+
+            <div class="bg-slate-50 p-4 border-t border-slate-100 flex items-center justify-between">
+                <button
+                    class="bg-vq-ruby hover:bg-rose-900 text-white font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i> تحميل التعميم PDF
+                </button>
+                <button onclick="closeModal('circularModal')"
+                    class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs px-4 py-2 rounded-xl transition">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6.10 Organizational structure file -->
+    <div id="orgStructureModal"
+        class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-vq-teal text-white p-4 flex items-center justify-between">
+                <h3 class="text-sm font-medium" data-i18n="hpStructure">الهيكل التنظيمي والدليل</h3>
+                <button onclick="closeModal('orgStructureModal')" class="text-white text-xl">&times;</button>
+            </div>
+            <div class="p-5 text-xs text-slate-600 space-y-3">
+                <p data-i18n="hpStructureText">انقر على الصورة لفتح ملف الهيكل التنظيمي لقطر للسياحة. يُضاف الملف ويُدار
+                    بواسطة المسؤول.</p>
+                <a href="#" class="inline-flex items-center gap-2 text-vq-teal font-medium">
+                    <i class="fa-solid fa-file-pdf"></i> VQ-Organizational-Structure.pdf
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6.12 Hotlines screen -->
+    <div id="hotlinesModal"
+        class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-3xl max-w-3xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="bg-vq-teal text-white p-4 flex items-center justify-between">
+                <h3 class="text-sm font-medium" data-i18n="hpHotlines">الخطوط الساخنة</h3>
+                <button onclick="closeModal('hotlinesModal')" class="text-white text-xl">&times;</button>
+            </div>
+            <div class="p-5 overflow-y-auto space-y-5">
+                <div>
+                    <h4 class="text-xs font-medium text-vq-teal mb-2" data-i18n="hpEmergency">أرقام الطوارئ</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <div class="rounded-xl border border-slate-200 p-3 text-xs">
+                            <p class="text-slate-400">Police</p>
+                            <p class="font-medium text-slate-800 mt-1">999</p>
+                        </div>
+                        <div class="rounded-xl border border-slate-200 p-3 text-xs">
+                            <p class="text-slate-400">Ambulance</p>
+                            <p class="font-medium text-slate-800 mt-1">999</p>
+                        </div>
+                        <div class="rounded-xl border border-slate-200 p-3 text-xs">
+                            <p class="text-slate-400">Civil Defense</p>
+                            <p class="font-medium text-slate-800 mt-1">999</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-medium text-vq-teal mb-2" data-i18n="hpDeptHeads">رؤساء الإدارات</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="rounded-xl border border-slate-200 p-3 flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-vq-teal/10 text-vq-teal flex items-center justify-center">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="font-medium text-slate-800">IT Department</p>
+                                <p class="text-slate-500">+974 4020 0001</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl border border-slate-200 p-3 flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-vq-teal/10 text-vq-teal flex items-center justify-center">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="font-medium text-slate-800">Human Resources</p>
+                                <p class="text-slate-500">+974 4020 0002</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl border border-slate-200 p-3 flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-vq-teal/10 text-vq-teal flex items-center justify-center">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="font-medium text-slate-800">Facilities</p>
+                                <p class="text-slate-500">+974 4020 0003</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl border border-slate-200 p-3 flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-vq-teal/10 text-vq-teal flex items-center justify-center">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="font-medium text-slate-800">Security</p>
+                                <p class="text-slate-500">+974 4020 0004</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- BRAND GUIDELINES MODAL                                                    -->
+    <!-- ========================================================================= -->
+    <div id="guidelinesModal"
+        class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
+
+            <!-- Header -->
+            <div class="bg-vq-teal text-white p-5 flex items-center justify-between border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="bg-vq-amber p-2.5 rounded-xl text-white font-bold shadow-sm">
+                        <i class="fa-solid fa-swatchbook text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg">دليل الهوية البصرية الرسمية - Visit Qatar Guidelines
+                        </h3>
+                        <p class="text-xs text-teal-100">المعايير المعتمدة لليبل، الشعار، الألوان الرسمية، والألوان
+                            الثانوية</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('guidelinesModal')"
+                    class="text-slate-200 hover:text-white text-2xl font-bold transition">&times;</button>
+            </div>
+
+            <!-- Scrollable Content Body -->
+            <div class="p-6 space-y-8 overflow-y-auto flex-1 text-xs text-slate-700">
+
+                <!-- SECTION 1: LOGOTYPE COLOURWAYS -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-vq-teal"></i> نماذج وألوان الشعار (Logotype
+                            Colourways)
+                        </h4>
+                        <span class="text-[11px] text-slate-500 font-mono">Brandmark Rules</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                        <!-- Positive Colourway -->
+                        <div
+                            class="bg-[#E4ECEF] p-4 rounded-2xl border border-slate-200 flex flex-col items-center justify-between text-center min-h-[140px] shadow-xs">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Positive
+                                Colour</span>
+                            <div class="my-auto">
+                                <svg class="h-10 w-auto" viewBox="0 0 160 55" fill="none">
+                                    <text x="5" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#00626C">v</text>
+                                    <text x="21" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#00626C">i</text>
+                                    <rect x="23.5" y="4" width="4" height="4" transform="rotate(45 25.5 6)"
+                                        fill="#D76800" />
+                                    <text x="31" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#00626C">s</text>
+                                    <text x="44" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#00626C">i</text>
+                                    <rect x="46.5" y="4" width="4" height="4" transform="rotate(45 48.5 6)"
+                                        fill="#D76800" />
+                                    <text x="54" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#00626C">t</text>
+                                    <path d="M 52 10 Q 59 7 66 12 Q 59 10 52 10 Z" fill="#8A1538" />
+                                    <text x="5" y="48" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="25" fill="#00626C" letter-spacing="2">QATAR</text>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] text-slate-600 font-medium">الاستخدام القياسي على الخلفيات
+                                الفاتحة</span>
+                        </div>
+
+                        <!-- Negative Colourway -->
+                        <div
+                            class="bg-[#00626C] p-4 rounded-2xl border border-teal-800 flex flex-col items-center justify-between text-center min-h-[140px] text-white shadow-xs">
+                            <span class="text-[10px] font-bold text-teal-200 uppercase tracking-wider mb-2">Negative
+                                Colour</span>
+                            <div class="my-auto">
+                                <svg class="h-10 w-auto" viewBox="0 0 160 55" fill="none">
+                                    <text x="5" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">v</text>
+                                    <text x="21" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">i</text>
+                                    <rect x="23.5" y="4" width="4" height="4" transform="rotate(45 25.5 6)"
+                                        fill="#FFFFFF" />
+                                    <text x="31" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">s</text>
+                                    <text x="44" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">i</text>
+                                    <rect x="46.5" y="4" width="4" height="4" transform="rotate(45 48.5 6)"
+                                        fill="#FFFFFF" />
+                                    <text x="54" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">t</text>
+                                    <path d="M 52 10 Q 59 7 66 12 Q 59 10 52 10 Z" fill="#FFFFFF" />
+                                    <text x="5" y="48" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="25" fill="#FFFFFF" letter-spacing="2">QATAR</text>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] text-teal-100 font-medium">الاستخدام على خلفيات Teal الداكنة</span>
+                        </div>
+
+                        <!-- Positive Black -->
+                        <div
+                            class="bg-[#ECECEC] p-4 rounded-2xl border border-slate-300 flex flex-col items-center justify-between text-center min-h-[140px] shadow-xs">
+                            <span class="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-2">Positive
+                                Black</span>
+                            <div class="my-auto">
+                                <svg class="h-10 w-auto" viewBox="0 0 160 55" fill="none">
+                                    <text x="5" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#000000">v</text>
+                                    <text x="21" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#000000">i</text>
+                                    <rect x="23.5" y="4" width="4" height="4" transform="rotate(45 25.5 6)"
+                                        fill="#000000" />
+                                    <text x="31" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#000000">s</text>
+                                    <text x="44" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#000000">i</text>
+                                    <rect x="46.5" y="4" width="4" height="4" transform="rotate(45 48.5 6)"
+                                        fill="#000000" />
+                                    <text x="54" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#000000">t</text>
+                                    <path d="M 52 10 Q 59 7 66 12 Q 59 10 52 10 Z" fill="#000000" />
+                                    <text x="5" y="48" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="25" fill="#000000" letter-spacing="2">QATAR</text>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-medium">للطباعة أحادية اللون
+                                (Monochrome)</span>
+                        </div>
+
+                        <!-- Negative White -->
+                        <div
+                            class="bg-black p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-between text-center min-h-[140px] text-white shadow-xs">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Negative
+                                White</span>
+                            <div class="my-auto">
+                                <svg class="h-10 w-auto" viewBox="0 0 160 55" fill="none">
+                                    <text x="5" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">v</text>
+                                    <text x="21" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">i</text>
+                                    <rect x="23.5" y="4" width="4" height="4" transform="rotate(45 25.5 6)"
+                                        fill="#FFFFFF" />
+                                    <text x="31" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">s</text>
+                                    <text x="44" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">i</text>
+                                    <rect x="46.5" y="4" width="4" height="4" transform="rotate(45 48.5 6)"
+                                        fill="#FFFFFF" />
+                                    <text x="54" y="24" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="22" fill="#FFFFFF">t</text>
+                                    <path d="M 52 10 Q 59 7 66 12 Q 59 10 52 10 Z" fill="#FFFFFF" />
+                                    <text x="5" y="48" font-family="'Visit Qatar', 'زوروا قطر', Tahoma, sans-serif"
+                                        font-weight="500" font-size="25" fill="#FFFFFF" letter-spacing="2">QATAR</text>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] text-slate-400 font-medium">الاستخدام على الخلفيات السوداء</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 2: PRIMARY PALETTE TECHNICAL SPECS -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-vq-teal"></span> الألوان الأساسية المعتمدة (Primary Palette
+                        Technical Matrix)
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <!-- Royal Teal -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div
+                                class="w-full h-14 bg-[#00626C] rounded-xl mb-3 shadow-inner flex items-center justify-center text-white font-bold">
+                                Royal Teal
+                            </div>
+                            <div class="space-y-1 font-mono text-[11px] text-slate-600">
+                                <div class="flex justify-between"><span>HEX:</span> <strong
+                                        class="text-slate-800">#00626C</strong></div>
+                                <div class="flex justify-between"><span>RGB:</span> <span>0, 98, 108</span></div>
+                                <div class="flex justify-between"><span>CMYK:</span> <span>95, 36, 48, 13</span></div>
+                                <div class="flex justify-between"><span>Pantone:</span> <span
+                                        class="text-vq-teal font-bold">7715 C</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Ruby -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div
+                                class="w-full h-14 bg-[#8A1538] rounded-xl mb-3 shadow-inner flex items-center justify-center text-white font-bold">
+                                Ruby Accent
+                            </div>
+                            <div class="space-y-1 font-mono text-[11px] text-slate-600">
+                                <div class="flex justify-between"><span>HEX:</span> <strong
+                                        class="text-slate-800">#8A1538</strong></div>
+                                <div class="flex justify-between"><span>RGB:</span> <span>138, 21, 56</span></div>
+                                <div class="flex justify-between"><span>CMYK:</span> <span>28, 100, 70, 31</span></div>
+                                <div class="flex justify-between"><span>Pantone:</span> <span
+                                        class="text-vq-ruby font-bold">202 C</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Amber -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div
+                                class="w-full h-14 bg-[#D76800] rounded-xl mb-3 shadow-inner flex items-center justify-center text-white font-bold">
+                                Amber Accent
+                            </div>
+                            <div class="space-y-1 font-mono text-[11px] text-slate-600">
+                                <div class="flex justify-between"><span>HEX:</span> <strong
+                                        class="text-slate-800">#D76800</strong></div>
+                                <div class="flex justify-between"><span>RGB:</span> <span>215, 104, 0</span></div>
+                                <div class="flex justify-between"><span>CMYK:</span> <span>14, 71, 100, 4</span></div>
+                                <div class="flex justify-between"><span>Pantone:</span> <span
+                                        class="text-vq-amber font-bold">1585 C</span></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-slate-100 p-4 border-t border-slate-200 flex items-center justify-between">
+                <span class="text-[11px] text-slate-500"><i class="fa-solid fa-shield-halved ml-1"></i> Qatar Tourism
+                    Official Brand System Manual</span>
+                <button onclick="closeModal('guidelinesModal')"
+                    class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-6 py-2 rounded-xl transition shadow">
+                    إغلاق الدليل
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        let currentLang = localStorage.getItem('vq-lang') || 'ar';
+        let activeOption = 'opt1';
+        let fontScale = parseFloat(localStorage.getItem('vq-font-scale')) || 1;
+        let activeSearchFilter = 'all';
+
+        const i18n = {
+            ar: {
+                portalWelcome: 'أهلاً بك في بوابة قطر للسياحة',
+                portalSubtext: 'منصتكم الإلكترونية المتكاملة للخدمات والتعاميم والأنظمة المؤسسية',
+                navTitle: 'القائمة الرئيسية',
+                navHome: 'الصفحة الرئيسية',
+                navDepts: 'الإدارات',
+                navAnnouncements: 'الإعلانات',
+                navDiscounts: 'الخصومات',
+                navCerts: 'شهادات قطر للسياحة',
+                navAwards: 'الجوائز المستلمة',
+                navEvents: 'الفعاليات',
+                navNews: 'الأخبار',
+                navSurveys: 'الاستبيانات',
+                navPolicies: 'السياسات والإجراءات والنماذج',
+                navHotlines: 'الخطوط الساخنة',
+                navCourses: 'الدورات',
+                showAll: 'عرض الكل ←',
+                logoHome: 'الصفحة الرئيسية',
+                searchLabel: 'بحث',
+                searchPlaceholder: 'ابحث في كل محتوى البوابة...',
+                searchFiltersTitle: 'عوامل التصفية',
+                filterAll: 'الكل',
+                filterPages: 'صفحات',
+                filterPeople: 'أشخاص',
+                filterDocuments: 'مستندات',
+                filterImages: 'صور',
+                filterVideos: 'فيديو',
+                decreaseFont: 'تصغير الخط',
+                increaseFont: 'تكبير الخط',
+                userName: 'جاسم الخاطر',
+                userTitle: 'أخصائي التحول الرقمي',
+                userDept: 'إدارة تقنية المعلومات',
+                copyrightPrefix: 'جميع الحقوق محفوظة',
+                footerCerts: 'شهادات قطر للسياحة',
+                showMore: 'عرض المزيد',
+                hpUpdates: 'آخر التعاميم',
+                hpUpdatesSub: 'أحدث 10 إعلانات مرتبة من الأحدث إلى الأقدم',
+                hpTypeGeneral: 'عام',
+                hpTypeCeo: 'الرئيس التنفيذي',
+                hpTypeDeath: 'تعزية',
+                hpUpdateSearch: 'بحث عن تحديث...',
+                hpTypeHr: 'موارد بشرية',
+                hpTypeIt: 'تقنية معلومات',
+                hpTypeNews: 'أخبار',
+                hpTypePolicy: 'سياسات',
+                hpEvents: 'فعاليات قطر للسياحة',
+                hpCalendar: 'تقويم قطر للسياحة',
+                hpCalendarSync: 'مزامنة SeaTable حسب صلاحيات الإدارة',
+                hpCalendarMap: 'عرض مواقع أنشطة الإدارات حسب الصلاحيات',
+                hpViewList: 'قائمة',
+                hpViewCalendar: 'تقويم',
+                hpCalMonth: 'سبتمبر 2026',
+                hpNews: 'آخر الأخبار',
+                hpDiscounts: 'أحدث الخصومات',
+                hpCerts: 'شهادات قطر للسياحة (ISO)',
+                hpWeather: 'توقعات الطقس',
+                hpWeatherToday: 'اليوم — مشمس',
+                hpPrayer: 'مواقيت الصلاة',
+                hpNextPrayer: 'التالي: الظهر',
+                hpPrayerSource: 'تُحدَّث تلقائياً وفق الاتحاد الإسلامي العالمي',
+                hpSystems: 'روابط الأنظمة والبرامج',
+                hpVision: 'الرسالة والرؤية والمهمة',
+                hpVisionTitle: 'رؤيتنا',
+                hpVisionText: 'تعزيز مكانة قطر كوجهة أولى للسياحة العالمية والمحلية والتي تتميز بجودة خدماتها.',
+                hpMissionTitle: 'مهمتنا',
+                hpMissionText: 'تنظيم وتطوير السياحة في قطر من خلال عرض ثقافتها الغنية ووجهاتها المميزة.',
+                hpMessageTitle: 'رسالتنا',
+                hpMessageText: 'نصنع تجارب تبقى في الذاكرة ونمكّن فرق العمل بخدمات رقمية موحدة.',
+                hpStructure: 'الهيكل التنظيمي والدليل',
+                hpStructureText: 'انقر على الصورة لفتح ملف الهيكل التنظيمي لقطر للسياحة. يُضاف الملف ويُدار بواسطة المسؤول.',
+                hpGuides: 'أدلة استخدام الأنظمة',
+                hpHotlines: 'الخطوط الساخنة',
+                hpHotlinesText: 'أرقام الطوارئ وجهات الاتصال لرؤساء الإدارات في الحالات العاجلة، مع بطاقات معلومات ووصول سريع.',
+                hpHotlinesBtn: 'فتح شاشة الخطوط الساخنة',
+                hpEmergency: 'أرقام الطوارئ',
+                hpDeptHeads: 'رؤساء الإدارات'
+            },
+            en: {
+                portalWelcome: 'Welcome to Qatar Tourism Intranet',
+                portalSubtext: 'Your integrated digital portal for corporate services, circulars, and systems',
+                navTitle: 'Main Navigation',
+                navHome: 'Homepage',
+                navDepts: 'Departments',
+                navAnnouncements: 'Announcements',
+                navDiscounts: 'Discounts',
+                navCerts: 'Visit Qatar Certificates',
+                navAwards: 'Received Awards',
+                navEvents: 'Events',
+                navNews: 'News',
+                navSurveys: 'Survey',
+                navPolicies: 'Policies, Procedures, and Forms',
+                navHotlines: 'Hotlines',
+                navCourses: 'Courses',
+                showAll: 'Show All →',
+                logoHome: 'Homepage',
+                searchLabel: 'Search',
+                searchPlaceholder: 'Search all portal content...',
+                searchFiltersTitle: 'Filters',
+                filterAll: 'All',
+                filterPages: 'Pages',
+                filterPeople: 'People',
+                filterDocuments: 'Documents',
+                filterImages: 'Images',
+                filterVideos: 'Videos',
+                decreaseFont: 'Decrease font size',
+                increaseFont: 'Increase font size',
+                userName: 'Jassim Al-Khater',
+                userTitle: 'Digital Transformation Specialist',
+                userDept: 'Information Technology Department',
+                copyrightPrefix: 'All rights reserved',
+                footerCerts: 'Visit Qatar Certificates',
+                showMore: 'Show More',
+                hpUpdates: 'Latest Updates',
+                hpUpdatesSub: 'Latest 10 announcements, newest first',
+                hpTypeGeneral: 'General',
+                hpTypeCeo: 'CEO',
+                hpTypeDeath: 'Condolence',
+                hpUpdateSearch: 'Search for an update...',
+                hpTypeHr: 'Human Resources',
+                hpTypeIt: 'Information Technology',
+                hpTypeNews: 'News',
+                hpTypePolicy: 'Policies',
+                hpEvents: 'QC Events',
+                hpCalendar: 'VQ Calendar',
+                hpCalendarSync: 'SeaTable sync by department access',
+                hpCalendarMap: 'Department activity locations by permission',
+                hpViewList: 'List',
+                hpViewCalendar: 'Calendar',
+                hpCalMonth: 'September 2026',
+                hpNews: 'Latest News',
+                hpDiscounts: 'Latest Discounts',
+                hpCerts: 'Visit Qatar Certificates (ISO)',
+                hpWeather: 'Weather Forecast',
+                hpWeatherToday: 'Today — Sunny',
+                hpPrayer: 'Prayer Times',
+                hpNextPrayer: 'Next: Dhuhr',
+                hpPrayerSource: 'Updated automatically from the International Islamic Union',
+                hpSystems: 'Software & System Links',
+                hpVision: 'Message, Vision & Mission',
+                hpVisionTitle: 'Our Vision',
+                hpVisionText: 'Position Qatar as a leading global and local tourism destination known for service quality.',
+                hpMissionTitle: 'Our Mission',
+                hpMissionText: 'Regulate and develop tourism in Qatar by showcasing its culture and distinctive destinations.',
+                hpMessageTitle: 'Our Message',
+                hpMessageText: 'We create memorable experiences and empower teams through unified digital services.',
+                hpStructure: 'Visit Qatar Structure & Guide',
+                hpStructureText: 'Click the image to open the VQ organizational structure file, managed by the administrator.',
+                hpGuides: 'User Guide for Each System',
+                hpHotlines: 'Hotlines',
+                hpHotlinesText: 'Emergency numbers and department-head contacts for urgent cases, shown as contact cards with quick access.',
+                hpHotlinesBtn: 'Open hotlines screen',
+                hpEmergency: 'Emergency numbers',
+                hpDeptHeads: 'Department heads'
+            }
+        };
+
+        const searchCatalog = [
+            { url: 'pages/announcements.html', type: 'pages', icon: 'fa-file-lines', color: 'text-vq-teal', arTitle: 'صفحة التعاميم الرسمية', enTitle: 'Official Circulars page', arMeta: 'صفحة', enMeta: 'Page' },
+            { url: 'pages/employees.html?id=VQ-10231', type: 'people', icon: 'fa-user', color: 'text-indigo-600', arTitle: 'جاسم الخاطر — تقنية المعلومات', enTitle: 'Jassim Al-Khater — IT', arMeta: 'شخص', enMeta: 'Person' },
+            { url: 'pages/policies.html?doc=remote-work-policy', type: 'documents', icon: 'fa-file-word', color: 'text-sky-600', arTitle: 'سياسة العمل عن بُعد.docx', enTitle: 'Remote Work Policy.docx', arMeta: 'مستند Office', enMeta: 'Office document' },
+            { url: 'pages/album.html?id=partners-forum', type: 'images', icon: 'fa-image', color: 'text-amber-600', arTitle: 'مؤتمر السياحة — الدوحة', enTitle: 'Tourism Conference — Doha', arMeta: 'صورة', enMeta: 'Image' },
+            { url: 'pages/video-library.html?id=forbes-highlights', type: 'videos', icon: 'fa-circle-play', color: 'text-vq-ruby', arTitle: 'ورشة فوربس للسفر', enTitle: 'Forbes Travel workshop', arMeta: 'فيديو', enMeta: 'Video' }
+        ];
+
+        const circularPlaceholderGeneral = 'general.png';
+        const circularPlaceholderCeo = 'ceo.png';
+        const circularPlaceholderDeath = 'death.png';
+        const circularPlaceholderHr = 'HR.png';
+
+        function getCircularPlaceholderImageUrl(contentType0) {
+            if (contentType0 && contentType0.indexOf('General') !== -1) {
+                return circularPlaceholderGeneral;
+            }
+            if (contentType0 && contentType0.indexOf('CEO') !== -1) {
+                return circularPlaceholderCeo;
+            }
+            if (contentType0 && contentType0.indexOf('Death') !== -1) {
+                return circularPlaceholderDeath;
+            }
+            if (contentType0 && contentType0.indexOf('HR') !== -1) {
+                return circularPlaceholderHr;
+            }
+            return circularPlaceholderGeneral;
+        }
+
+        function getCircularBackgroundClass(contentType0) {
+            if (contentType0 && contentType0.indexOf('General') !== -1) {
+                return 'blue-background';
+            }
+            if (contentType0 && contentType0.indexOf('CEO') !== -1) {
+                return 'gold-background';
+            }
+            if (contentType0 && contentType0.indexOf('Death') !== -1) {
+                return 'black-background';
+            }
+            if (contentType0 && contentType0.indexOf('HR') !== -1) {
+                return 'burgundy-background';
+            }
+            return '';
+        }
+
+        const homepageUpdates = [
+            { id: 'ceo-fiscal-year', contentType: 'CEO', date: '2026-09-12', ar: 'كلمة الرئيس التنفيذي — بداية السنة المالية', en: 'CEO message — start of the fiscal year', arDesc: 'توجيهات الافتتاح ومعايير الضيافة للربع الجديد.', enDesc: 'Opening guidance and hospitality standards for the new quarter.' },
+            { id: 'ac-temperature', contentType: 'General', date: '2026-09-11', ar: 'تعميم درجات حرارة المكاتب وترشيد الطاقة', en: 'Office temperature and energy circular', arDesc: 'تعليمات التشغيل الموحدة للمكاتب خلال الصيف.', enDesc: 'Unified office operating instructions for the summer.' },
+            { id: 'condolence-almarri', contentType: 'Death', date: '2026-09-10', ar: 'تعزية في وفاة والد الزميل خالد المري', en: 'Condolence — father of colleague Khalid Al-Marri', arDesc: 'نتقدم بأصدق التعازي للزميل وأسرته.', enDesc: 'Our sincere condolences to our colleague and his family.' },
+            { id: 'annual-leave-update', contentType: 'HR', date: '2026-09-09', ar: 'تحديث سياسة الإجازات السنوية', en: 'Annual leave policy update', arDesc: 'تفاصيل السياسة الجديدة وآلية تقديم الطلب.', enDesc: 'Details of the new policy and how to submit a request.' }
+        ];
+
+        const homepageGuides = [
+            { system: 'hr', icon: 'fa-users', ar: 'دليل نظام الموارد البشرية', en: 'HR system user guide', kind: 'video', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=200&q=80' },
+            { system: 'it', icon: 'fa-laptop', ar: 'دليل بوابة المستكشف', en: 'Explorer portal guide', kind: 'image', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80' },
+            { system: 'finance', icon: 'fa-file-invoice', ar: 'دليل التراخيص الإلكترونية', en: 'E-licensing guide', kind: 'link', img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=200&q=80' },
+            { system: 'it', icon: 'fa-headset', ar: 'دليل نظام تواصل', en: 'Support system guide', kind: 'video', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=200&q=80' }
+        ];
+
+        const homepageEvents = [
+            { id: 'standup-taha', date: '2026-09-12', arDate: '12 سبتمبر', enDate: '12 Sep', ar: 'عرض ستاند أب كوميدي - طه دسوقي', en: 'Stand-up comedy — Taha Desouky', arPlace: 'قاعة الفردان', enPlace: 'Al Fardan Hall', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=200&q=80' },
+            { id: 'forbes-workshop', date: '2026-09-09', arDate: '09 سبتمبر', enDate: '09 Sep', ar: 'ورشة قيادات الضيافة مع فوربس للسفر', en: 'Hospitality leadership workshop with Forbes Travel', arPlace: 'برج الدوحة', enPlace: 'Doha Tower', img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=200&q=80' },
+            { id: 'health-day', date: '2026-09-05', arDate: '05 سبتمبر', enDate: '05 Sep', ar: 'يوم التوعية الصحية للموظفين', en: 'Employee health awareness day', arPlace: 'قاعة الاجتماعات الرئيسية', enPlace: 'Main meeting hall', img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=200&q=80' },
+            { id: 'partners-forum', date: '2026-09-01', arDate: '01 سبتمبر', enDate: '01 Sep', ar: 'ملتقى الشركاء السياحيين', en: 'Tourism partners forum', arPlace: 'مركز قطر الوطني للمؤتمرات', enPlace: 'QNCC', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=400&q=80' }
+        ];
+
+        const homepageNews = [
+            { id: 'strategic-partnership', date: '2026-09-12', arDate: '12 سبتمبر', enDate: '12 Sep', arCat: 'شراكات', enCat: 'Partnerships', ar: 'قطر للسياحة تُطلق الشراكة الاستراتيجية لتعزيز خدمات الضيافة', en: 'Visit Qatar launches a strategic partnership to strengthen hospitality services', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80' },
+            { id: 'forbes-session', date: '2026-09-10', arDate: '10 سبتمبر', enDate: '10 Sep', arCat: 'فعاليات', enCat: 'Events', ar: 'تغطية جلسة فوربس للسفر في الدوحة', en: 'Coverage of the Forbes Travel session in Doha', img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80' },
+            { id: 'katara-season', date: '2026-09-07', arDate: '07 سبتمبر', enDate: '07 Sep', arCat: 'ثقافة', enCat: 'Culture', ar: 'انطلاق موسم الفعاليات الثقافية في كتارا', en: 'Katara cultural season kicks off', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80' },
+            { id: 'sustainability-standards', date: '2026-09-04', arDate: '04 سبتمبر', enDate: '04 Sep', arCat: 'استدامة', enCat: 'Sustainability', ar: 'تحديث معايير الاستدامة للمنشآت السياحية', en: 'Updated sustainability standards for tourism facilities', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80' },
+            { id: 'summer-campaign', date: '2026-09-01', arDate: '01 سبتمبر', enDate: '01 Sep', arCat: 'سياحة', enCat: 'Tourism', ar: 'إطلاق حملة صيف قطر للوجهات الساحلية', en: 'Qatar summer campaign for coastal destinations launches', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80' },
+            { id: 'airport-recognition', date: '2026-08-28', arDate: '28 أغسطس', enDate: '28 Aug', arCat: 'مجتمع', enCat: 'Community', ar: 'تكريم فرق الضيافة المتميزة في المطار', en: 'Airport hospitality teams recognized for excellence', img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80' }
+        ];
+
+        const calendarWeekdays = {
+            ar: ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
+            en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+        };
+
+        let activeAnnouncementFilter = 'all';
+        let activeGuideFilter = 'all';
+        let eventsView = 'list';
+
+        function typeLabel(contentType) {
+            if (contentType && contentType.indexOf('CEO') !== -1) return i18n[currentLang].hpTypeCeo;
+            if (contentType && contentType.indexOf('Death') !== -1) return i18n[currentLang].hpTypeDeath;
+            if (contentType && contentType.indexOf('HR') !== -1) return i18n[currentLang].hpTypeHr;
+            return i18n[currentLang].hpTypeGeneral;
+        }
+
+        function renderHomepageUpdates() {
+            const box = document.getElementById('updatesList');
+            if (!box) return;
+            const items = homepageUpdates
+                .slice()
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .filter(item => activeAnnouncementFilter === 'all' || (item.contentType && item.contentType.indexOf(activeAnnouncementFilter) !== -1))
+                .slice(0, 4);
+
+            box.innerHTML = items.length ? items.map(item => {
+                const title = currentLang === 'ar' ? item.ar : item.en;
+                const img = getCircularPlaceholderImageUrl(item.contentType);
+                const backgroundColorClass = getCircularBackgroundClass(item.contentType);
+                const dateLabel = item.date.split('-').reverse().join('-');
+                return `<a href="pages/announcement-details.html?id=${item.id}" class="circular-content-normal">
+                    <div class="circular-image-normal">
+                        <img src="${img}" alt="${item.contentType}">
+                    </div>
+                    <div class="circular-text-normal ${backgroundColorClass}">
+                        <div class="circular-text-content">
+                            <h5>${title}</h5>
+                            <p>${typeLabel(item.contentType)} · ${dateLabel}</p>
+                        </div>
+                    </div>
+                </a>`;
+            }).join('') : `<p class="text-xs text-slate-400 p-2">${currentLang === 'ar' ? 'لا توجد إعلانات مطابقة' : 'No matching announcements'}</p>`;
+        }
+
+        function renderHomepageEvents() {
+            const box = document.getElementById('eventsList');
+            if (!box) return;
+            box.innerHTML = homepageEvents.slice(0, 4).map(item => {
+                const title = currentLang === 'ar' ? item.ar : item.en;
+                const place = currentLang === 'ar' ? item.arPlace : item.enPlace;
+                const dateLabel = currentLang === 'ar' ? item.arDate : item.enDate;
+                return `<a href="pages/event-details.html?id=${item.id}" class="flex gap-3 p-3 hover:bg-slate-50">
+                    <div class="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-200 shrink-0">
+                        <img src="${item.img}" alt="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/128x128/00626C/FFFFFF?text=Event';">
+                        <div class="absolute bottom-0 inset-x-0 bg-vq-teal/90 text-white text-center text-[9px] py-0.5">${dateLabel}</div>
+                    </div>
+                    <div class="min-w-0">
+                        <h5 class="text-xs font-medium text-slate-800 truncate">${title}</h5>
+                        <p class="text-[11px] text-slate-500 mt-0.5">${place}</p>
+                    </div>
+                </a>`;
+            }).join('');
+        }
+
+        let newsIndex = 0;
+        let newsTimer = null;
+
+        function showNewsSlide(index) {
+            const slides = document.querySelectorAll('.news-slide');
+            const dots = document.querySelectorAll('.news-dot');
+            if (!slides.length) return;
+            newsIndex = (index + slides.length) % slides.length;
+            slides.forEach((slide, i) => slide.classList.toggle('is-active', i === newsIndex));
+            dots.forEach((dot, i) => dot.classList.toggle('is-active', i === newsIndex));
+        }
+
+        function startNewsSlider() {
+            clearInterval(newsTimer);
+            newsTimer = setInterval(() => showNewsSlide(newsIndex + 1), 5000);
+        }
+
+        function renderHomepageNews() {
+            const box = document.getElementById('newsList');
+            const dots = document.getElementById('newsDots');
+            if (!box) return;
+            box.innerHTML = homepageNews.map((item, i) => {
+                const title = currentLang === 'ar' ? item.ar : item.en;
+                const cat = currentLang === 'ar' ? item.arCat : item.enCat;
+                const dateLabel = currentLang === 'ar' ? item.arDate : item.enDate;
+                return `<a href="pages/news-details.html?id=${item.id}" class="news-slide ${i === newsIndex ? 'is-active' : ''}">
+                    <img src="${item.img}" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='https://placehold.co/800x320/00626C/FFFFFF?text=News';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-4 pb-8 text-white">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[10px] bg-vq-teal text-white px-2 py-0.5 rounded-full">${cat}</span>
+                            <span class="text-[10px] text-white/80">${dateLabel}</span>
+                        </div>
+                        <h5 class="text-sm font-medium leading-snug line-clamp-2">${title}</h5>
+                    </div>
+                </a>`;
+            }).join('');
+            if (dots) {
+                dots.innerHTML = homepageNews.map((_, i) =>
+                    `<button type="button" class="news-dot ${i === newsIndex ? 'is-active' : ''}" data-news-index="${i}" aria-label="Slide ${i + 1}"></button>`
+                ).join('');
+            }
+            showNewsSlide(newsIndex);
+            startNewsSlider();
+        }
+
+        function renderCalendarWeekdays() {
+            const box = document.getElementById('calendarWeekdays');
+            if (!box) return;
+            box.innerHTML = calendarWeekdays[currentLang].map(d => `<span>${d}</span>`).join('');
+        }
+
+        function setEventsView(view) {
+            eventsView = view === 'calendar' ? 'calendar' : 'list';
+            document.getElementById('eventsViewList')?.classList.toggle('hidden', eventsView !== 'list');
+            document.getElementById('eventsViewCalendar')?.classList.toggle('hidden', eventsView !== 'calendar');
+            document.querySelectorAll('.events-view-btn').forEach(el => {
+                const active = el.getAttribute('data-events-view') === eventsView;
+                el.classList.toggle('is-active', active);
+                el.classList.toggle('bg-vq-teal', active);
+                el.classList.toggle('text-white', active);
+                el.classList.toggle('bg-white', !active);
+                el.classList.toggle('text-slate-600', !active);
+            });
+            const title = document.getElementById('eventsSectionTitle');
+            if (title) {
+                const key = eventsView === 'calendar' ? 'hpCalendar' : 'hpEvents';
+                title.setAttribute('data-i18n', key);
+                title.innerText = i18n[currentLang][key];
+            }
+            const icon = document.getElementById('eventsSectionIcon');
+            if (icon) {
+                icon.className = eventsView === 'calendar'
+                    ? 'fa-solid fa-map-location-dot text-vq-teal'
+                    : 'fa-solid fa-calendar-check text-vq-teal';
+            }
+        }
+
+        function renderHomepageGuides() {
+            const box = document.getElementById('guidesList');
+            if (!box) return;
+            const items = homepageGuides.filter(g => activeGuideFilter === 'all' || g.system === activeGuideFilter);
+            box.innerHTML = items.map(g => {
+                const title = currentLang === 'ar' ? g.ar : g.en;
+                const extra = g.kind === 'video' ? 'fa-circle-play' : g.kind === 'image' ? 'fa-image' : 'fa-arrow-up-right-from-square';
+                return `<a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-2 rounded-xl border border-slate-100 hover:bg-slate-50">
+                    <img src="${g.img}" alt="" class="w-12 h-12 rounded-lg object-cover shrink-0 bg-slate-100">
+                    <span class="flex-1 text-xs font-medium text-slate-800">${title}</span>
+                    <i class="fa-solid ${extra} text-slate-400 text-[10px]"></i>
+                </a>`;
+            }).join('');
+        }
+
+        function applyI18n() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (i18n[currentLang][key]) el.setAttribute('placeholder', i18n[currentLang][key]);
+            });
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                if (i18n[currentLang][key]) el.setAttribute('title', i18n[currentLang][key]);
+            });
+        }
+
+        function applyLanguage() {
+            const html = document.documentElement;
+            html.setAttribute('lang', currentLang);
+            html.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            localStorage.setItem('vq-lang', currentLang);
+
+            const langAr = document.getElementById('langAr');
+            const langEn = document.getElementById('langEn');
+            if (langAr && langEn) {
+                langAr.classList.toggle('is-active', currentLang === 'ar');
+                langEn.classList.toggle('is-active', currentLang === 'en');
+            }
+
+            applyI18n();
+            renderSearchResults();
+            renderHomepageUpdates();
+            renderHomepageGuides();
+            renderHomepageEvents();
+            renderHomepageNews();
+            renderCalendarWeekdays();
+            setEventsView(eventsView);
+            if (typeof switchDesign === 'function') {
+                try { switchDesign(activeOption); } catch (e) { /* design switcher optional */ }
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            applyLanguage();
+        }
+
+        function toggleLanguage() {
+            setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+        }
+
+        function applyFontScale() {
+            fontScale = Math.min(1.25, Math.max(0.85, fontScale));
+            document.documentElement.style.fontSize = (16 * fontScale) + 'px';
+            localStorage.setItem('vq-font-scale', String(fontScale));
+        }
+
+        function renderSearchResults() {
+            const box = document.getElementById('searchResults');
+            const input = document.getElementById('globalSearch');
+            if (!box) return;
+
+            const query = (input?.value || '').trim().toLowerCase();
+            const items = searchCatalog.filter(item => {
+                const matchesFilter = activeSearchFilter === 'all' || item.type === activeSearchFilter;
+                const title = currentLang === 'ar' ? item.arTitle : item.enTitle;
+                const matchesQuery = !query || title.toLowerCase().includes(query) || item.type.includes(query);
+                return matchesFilter && matchesQuery;
+            });
+
+            if (!items.length) {
+                box.innerHTML = `<div class="p-4 text-xs text-slate-500">${currentLang === 'ar' ? 'لا توجد نتائج مطابقة' : 'No matching results'}</div>`;
+                return;
+            }
+
+            box.innerHTML = items.map(item => {
+                const title = currentLang === 'ar' ? item.arTitle : item.enTitle;
+                const meta = currentLang === 'ar' ? item.arMeta : item.enMeta;
+                const preview = currentLang === 'ar' ? 'معاينة' : 'Preview';
+                return `
+                    <a href="${item.url}" class="w-full flex items-center gap-3 p-3 text-start hover:bg-slate-50 transition">
+                        <span class="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 ${item.color}">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </span>
+                        <span class="min-w-0 flex-1">
+                            <span class="block text-xs font-medium text-slate-800 truncate">${title}</span>
+                            <span class="block text-[10px] text-slate-500">${meta} · ${preview}</span>
+                        </span>
+                    </a>`;
+            }).join('');
+        }
+
+        function openSearchPanel() {
+            const panel = document.getElementById('searchPanel');
+            if (!panel) return;
+            panel.classList.remove('hidden');
+            renderSearchResults();
+        }
+
+        function closeSearchPanel() {
+            document.getElementById('searchPanel')?.classList.add('hidden');
+        }
+
+        function switchDesign(optId) {
+            activeOption = optId;
+            const opt1 = document.getElementById('designOption1');
+            const opt2 = document.getElementById('designOption2');
+            const opt3 = document.getElementById('designOption3');
+            if (!opt1) return;
+
+            opt1.classList.add('hidden');
+            opt2?.classList.add('hidden');
+            opt3?.classList.add('hidden');
+
+            ['btnOpt1', 'btnOpt2', 'btnOpt3'].forEach(btn => {
+                const el = document.getElementById(btn);
+                if (el) el.className = 'px-3 py-1.5 rounded-lg transition-all duration-200 text-slate-400 hover:text-white';
+            });
+
+            const title = document.getElementById('currentOptionTitle');
+            if (optId === 'opt1') {
+                opt1.classList.remove('hidden');
+                const btn = document.getElementById('btnOpt1');
+                if (btn) btn.className = 'px-3 py-1.5 rounded-lg transition-all duration-200 bg-vq-teal text-white shadow';
+                if (title) title.innerText = currentLang === 'ar' ? 'خيار 1: التصميم المطوّر (Enhancement)' : 'Option 1: Refined Baseline';
+            } else if (optId === 'opt2' && opt2) {
+                opt2.classList.remove('hidden');
+                const btn = document.getElementById('btnOpt2');
+                if (btn) btn.className = 'px-3 py-1.5 rounded-lg transition-all duration-200 bg-vq-teal text-white shadow';
+                if (title) title.innerText = currentLang === 'ar' ? 'خيار 2: لوحة بينتو (Bento Dashboard)' : 'Option 2: Bento Dashboard';
+            } else if (optId === 'opt3' && opt3) {
+                opt3.classList.remove('hidden');
+                const btn = document.getElementById('btnOpt3');
+                if (btn) btn.className = 'px-3 py-1.5 rounded-lg transition-all duration-200 bg-vq-teal text-white shadow';
+                if (title) title.innerText = currentLang === 'ar' ? 'خيار 3: تجربة غامرة (Immersive Experience)' : 'Option 3: Immersive Experience';
+            }
+        }
+
+        function showModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        (function initPageHeader() {
+            applyFontScale();
+            applyLanguage();
+            const yearEl = document.getElementById('copyrightYear');
+            if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+            document.getElementById('homeLogo')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('designOption1')?.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.getElementById('langAr')?.addEventListener('click', () => setLanguage('ar'));
+            document.getElementById('langEn')?.addEventListener('click', () => setLanguage('en'));
+
+            document.getElementById('increaseFont')?.addEventListener('click', () => {
+                fontScale += 0.05;
+                applyFontScale();
+            });
+            document.getElementById('decreaseFont')?.addEventListener('click', () => {
+                fontScale -= 0.05;
+                applyFontScale();
+            });
+
+            const searchInput = document.getElementById('globalSearch');
+            const searchWrap = document.getElementById('searchWrap');
+            searchInput?.addEventListener('focus', openSearchPanel);
+            searchInput?.addEventListener('input', () => {
+                openSearchPanel();
+                renderSearchResults();
+            });
+            document.getElementById('searchSubmit')?.addEventListener('click', () => {
+                if (searchInput && searchInput.value.trim()) location.href = 'pages/search.html?q=' + encodeURIComponent(searchInput.value.trim());
+                else openSearchPanel();
+            });
+            searchInput?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') location.href = 'pages/search.html?q=' + encodeURIComponent(searchInput.value.trim()) + (activeSearchFilter !== 'all' ? '&type=' + activeSearchFilter : '');
+            });
+
+            document.getElementById('searchFilters')?.addEventListener('click', (e) => {
+                const btn = e.target.closest('.search-filter');
+                if (!btn) return;
+                activeSearchFilter = btn.getAttribute('data-filter');
+                document.querySelectorAll('.search-filter').forEach(el => {
+                    el.classList.remove('is-active', 'bg-vq-teal', 'text-white');
+                    el.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                btn.classList.add('is-active', 'bg-vq-teal', 'text-white');
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                renderSearchResults();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (searchWrap && !searchWrap.contains(e.target)) closeSearchPanel();
+            });
+
+            document.getElementById('announcementFilters')?.addEventListener('click', (e) => {
+                const btn = e.target.closest('.announce-filter');
+                if (!btn) return;
+                activeAnnouncementFilter = btn.getAttribute('data-announce');
+                document.querySelectorAll('.announce-filter').forEach(el => {
+                    el.classList.remove('is-active', 'bg-vq-teal', 'text-white');
+                    el.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                btn.classList.add('is-active', 'bg-vq-teal', 'text-white');
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                renderHomepageUpdates();
+            });
+            document.getElementById('guideFilters')?.addEventListener('click', (e) => {
+                const btn = e.target.closest('.guide-filter');
+                if (!btn) return;
+                activeGuideFilter = btn.getAttribute('data-guide');
+                document.querySelectorAll('.guide-filter').forEach(el => {
+                    el.classList.remove('is-active', 'bg-vq-teal', 'text-white');
+                    el.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                btn.classList.add('is-active', 'bg-vq-teal', 'text-white');
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                renderHomepageGuides();
+            });
+            document.querySelectorAll('.events-view-btn').forEach(btn => {
+                btn.addEventListener('click', () => setEventsView(btn.getAttribute('data-events-view')));
+            });
+            document.getElementById('newsPrev')?.addEventListener('click', () => {
+                showNewsSlide(newsIndex - 1);
+                startNewsSlider();
+            });
+            document.getElementById('newsNext')?.addEventListener('click', () => {
+                showNewsSlide(newsIndex + 1);
+                startNewsSlider();
+            });
+            document.getElementById('newsDots')?.addEventListener('click', (e) => {
+                const dot = e.target.closest('.news-dot');
+                if (!dot) return;
+                showNewsSlide(Number(dot.getAttribute('data-news-index')));
+                startNewsSlider();
+            });
+            document.getElementById('newsSlider')?.addEventListener('mouseenter', () => clearInterval(newsTimer));
+            document.getElementById('newsSlider')?.addEventListener('mouseleave', startNewsSlider);
+            renderHomepageUpdates();
+            renderHomepageGuides();
+            renderHomepageEvents();
+            renderHomepageNews();
+            renderCalendarWeekdays();
+            setEventsView(eventsView);
+        })();
+
+    </script>
+</body>
+
+</html>

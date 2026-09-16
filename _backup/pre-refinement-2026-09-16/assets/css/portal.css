@@ -1,0 +1,431 @@
+/* ==========================================================================
+   Visit Qatar Intranet — Design Option 1
+   Part 1: styles carried over from the homepage (option1.html) unchanged
+   Part 2: additions for the internal prototype pages
+   ========================================================================== */
+
+/* ---------- Part 1 · Homepage styles ---------- */
+
+/* Official Visit Qatar typeface — Regular (body) & Medium (headlines) */
+@font-face {
+    font-family: 'Visit Qatar';
+    src: local('Visit Qatar Regular'), local('Visit Qatar'), local('زوروا قطر');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Visit Qatar';
+    src: local('Visit Qatar Medium'), local('Visit Qatar'), local('زوروا قطر');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'زوروا قطر';
+    src: local('زوروا قطر'), local('Visit Qatar Regular'), local('Visit Qatar');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'زوروا قطر';
+    src: local('Visit Qatar Medium'), local('زوروا قطر'), local('Visit Qatar');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #00626C; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00474F; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 500; }
+
+#siteHeader {
+    background-color: #00626C;
+    border-bottom-color: rgba(0, 71, 79, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 98, 108, 0.28);
+}
+
+#siteFooter { background-color: #00626C; }
+
+.header-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.header-chip:hover,
+.header-chip.is-active {
+    background: rgba(215, 104, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+#searchPanel {
+    position: absolute;
+    top: calc(100% + 10px);
+    inset-inline-start: 0;
+    width: min(28rem, 92vw);
+    z-index: 60;
+}
+
+[dir="ltr"] #searchPanel {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+}
+
+.footer-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-social:hover {
+    background: rgba(215, 104, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.footer-cert {
+    height: 2.75rem;
+    width: auto;
+    max-width: 6.5rem;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Circular (announcement) card — same as the homepage "Latest Updates" */
+.circular-content-normal {
+    position: relative;
+    display: block;
+    height: 9.5rem;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+.circular-image-normal { position: absolute; inset: 0; }
+
+.circular-image-normal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.circular-text-normal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.55rem 0.7rem 0.6rem;
+    min-height: 3.4rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.circular-text-content { padding: 0; }
+
+.circular-text-content h5 {
+    margin: 0 0 0.15rem;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.circular-text-content p {
+    margin: 0;
+    overflow: hidden;
+    color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.6rem;
+    opacity: 0.9;
+}
+
+.blue-background { background-color: #005871 !important; box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11); }
+.gold-background { background-color: #a08d31 !important; box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11); }
+.black-background { background-color: #2b2c27 !important; box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11); }
+.burgundy-background { background-color: #8A1538 !important; box-shadow: 0.369125rem 0rem 1.18375rem 0rem rgba(0, 0, 0, 0.11); }
+
+/* ---------- Part 2 · Internal pages ---------- */
+
+/* Directional icons are authored for RTL and mirrored in LTR */
+[dir="ltr"] .dir-icon { transform: scaleX(-1); }
+
+/* Page header — subtle Qatari geometric motif (echoes the circular artwork) */
+.vq-page-header::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: 15rem;
+    pointer-events: none;
+    opacity: 0.09;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none' stroke='%2300626C' stroke-width='1.2'%3E%3Cg%3E%3Crect x='70' y='20' width='60' height='60'/%3E%3Crect x='70' y='20' width='60' height='60' transform='rotate(45 100 50)'/%3E%3Ccircle cx='100' cy='50' r='12'/%3E%3C/g%3E%3Cg%3E%3Crect x='140' y='60' width='40' height='40'/%3E%3Crect x='140' y='60' width='40' height='40' transform='rotate(45 160 80)'/%3E%3C/g%3E%3Cg%3E%3Crect x='20' y='66' width='34' height='34'/%3E%3Crect x='20' y='66' width='34' height='34' transform='rotate(45 37 83)'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Form controls */
+.vq-input {
+    width: 100%;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    color: #1e293b;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.vq-input::placeholder { color: #94a3b8; }
+
+.vq-input:focus {
+    outline: none;
+    background: #fff;
+    border-color: #00626C;
+    box-shadow: 0 0 0 3px rgba(0, 98, 108, 0.15);
+}
+
+.vq-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: left 0.6rem center;
+    padding-left: 2rem;
+}
+
+[dir="ltr"] .vq-select {
+    background-position: right 0.6rem center;
+    padding-left: 0.75rem;
+    padding-right: 2rem;
+}
+
+input[type="date"].vq-input { min-height: 2.25rem; }
+
+/* Filter chips (same language as the homepage search filters) */
+.vq-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.vq-chip:hover { background: rgba(0, 98, 108, 0.08); color: #00626C; }
+.vq-chip.is-active { background: #00626C; color: #fff; }
+
+.vq-chip-count {
+    font-size: 0.625rem;
+    line-height: 1rem;
+    padding: 0 0.4rem;
+    border-radius: 9999px;
+    background: rgba(15, 23, 42, 0.07);
+}
+
+.vq-chip.is-active .vq-chip-count { background: rgba(255, 255, 255, 0.22); }
+
+/* Card hover image zoom */
+.vq-zoom img { transition: transform 0.6s ease; }
+.vq-zoom:hover img { transform: scale(1.05); }
+
+/* Album stacked-card effect */
+.album-stack { position: relative; }
+
+.album-stack::before,
+.album-stack::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0.75rem;
+    height: 100%;
+    border-radius: 1rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    z-index: 0;
+}
+
+.album-stack::before { top: -0.35rem; inset-inline: 0.5rem; }
+.album-stack::after { top: -0.7rem; inset-inline: 1.1rem; opacity: 0.7; }
+.album-stack > * { position: relative; z-index: 1; }
+
+/* Document viewer (static PDF preview) */
+.doc-viewer {
+    background: #525659;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #3f4346;
+}
+
+.doc-toolbar {
+    background: #323639;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.75rem;
+}
+
+.doc-btn {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.doc-btn:hover { background: rgba(255, 255, 255, 0.12); }
+
+.doc-pill {
+    background: #1f2224;
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.5rem;
+}
+
+.doc-stage { padding: 1.25rem; overflow: auto; }
+
+.doc-page {
+    background: #fff;
+    max-width: 38rem;
+    min-height: 34rem;
+    margin: 0 auto;
+    color: #334155;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+    transform-origin: top center;
+    transition: transform 0.2s ease;
+}
+
+.skeleton-line {
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: #e2e8f0;
+}
+
+/* Certificate visual */
+.cert-paper {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    outline: 3px double rgba(161, 139, 41, 0.45);
+    outline-offset: -9px;
+    border-radius: 0.75rem;
+}
+
+/* Video player mock */
+.video-mock {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+.video-mock.is-playing [data-video-play] { opacity: 0; pointer-events: none; }
+
+/* Events map placeholder */
+.map-canvas {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #e6f0f1;
+    min-height: 20rem;
+}
+
+.map-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-pin-dot {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px 9999px 9999px 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    border: 2px solid #fff;
+}
+
+.map-pin-dot i { transform: rotate(45deg); font-size: 0.7rem; }
+
+.map-pin-pulse {
+    position: absolute;
+    bottom: -0.35rem;
+    width: 0.9rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.25);
+}
+
+/* Lightbox */
+.vq-lightbox img { max-height: 72vh; }
+
+/* Toast */
+.vq-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translate(-50%, 1rem);
+    opacity: 0;
+    z-index: 90;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+.vq-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* Poll result bars */
+.poll-bar { transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media print {
+    #siteHeader, #siteFooter, #vqNav, .no-print { display: none !important; }
+}
