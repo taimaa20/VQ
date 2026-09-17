@@ -60,7 +60,7 @@
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                     <span class="text-[10px] bg-vq-teal text-white px-2 py-0.5 rounded-full">${tx(cat.label)}</span>
                     <span class="text-[11px] text-white/80"><i class="fa-solid fa-location-dot me-1"></i>${esc(tx(e.location))}</span>
-                    <span class="text-[11px] text-amber-300"><i class="fa-solid fa-hourglass-half me-1"></i>${t('daysLeft', { n: VQ.daysUntil(e.start) })}</span>
+                    <span class="text-[11px] text-vq-amber-45"><i class="fa-solid fa-hourglass-half me-1"></i>${t('daysLeft', { n: VQ.daysUntil(e.start) })}</span>
                 </div>
                 <h2 class="text-lg md:text-xl font-medium leading-snug">${esc(tx(e.title))}</h2>
                 <p class="text-xs text-white/80 mt-1.5 line-clamp-2">${esc(tx(e.summary))}</p>

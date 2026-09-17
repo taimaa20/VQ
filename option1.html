@@ -23,9 +23,10 @@
                             'teal-dark': '#00474F',
                             'teal-light': '#008390',
                             ruby: '#8A1538',
-                            amber: '#D76800',
+                            amber: '#D76B00',
                             'amber-light': '#FF8A1A',
-                            offwhite: '#FFFDE8',
+                            'amber-45': '#EDBC8C',
+                            offwhite: '#FFFDF8',
                             gold: '#A18B29',
                             red: '#F22434',
                             green: '#01A786',
@@ -172,7 +173,7 @@
 
         .header-chip:hover,
         .header-chip.is-active {
-            background: rgba(215, 104, 0, 0.9);
+            background: rgba(215, 107, 0, 0.9);
             border-color: rgba(255, 255, 255, 0.35);
         }
 
@@ -223,7 +224,7 @@
         }
 
         .footer-social:hover {
-            background: rgba(215, 104, 0, 0.9);
+            background: rgba(215, 107, 0, 0.9);
             border-color: rgba(255, 255, 255, 0.35);
         }
 
@@ -426,7 +427,7 @@
                         <label for="globalSearch" class="sr-only" data-i18n="searchLabel">بحث</label>
                         <input id="globalSearch" type="search" autocomplete="off"
                             data-i18n-placeholder="searchPlaceholder" placeholder="ابحث في كل محتوى البوابة..."
-                            class="w-full py-2 ps-3 pe-10 text-xs bg-white/15 border border-white/25 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-vq-amber focus:bg-white/25 transition">
+                            class="w-full py-2 ps-3 pe-10 text-xs bg-white/15 border border-white/25 rounded-xl text-white placeholder-white/85 focus:outline-none focus:ring-2 focus:ring-vq-amber focus:bg-white/25 transition">
                         <button type="button" id="searchSubmit"
                             class="absolute top-1/2 -translate-y-1/2 end-2.5 text-white/80 hover:text-white"
                             aria-label="Search">
@@ -485,7 +486,7 @@
                         <div class="hidden md:block leading-tight text-start">
                             <div class="text-xs font-medium text-white" data-i18n="userName">جاسم الخاطر</div>
                             <div class="text-[10px] text-white/85" data-i18n="userTitle">أخصائي التحول الرقمي</div>
-                            <div class="text-[10px] text-white/70" data-i18n="userDept">إدارة تقنية المعلومات</div>
+                            <div class="text-[10px] text-white/80" data-i18n="userDept">إدارة تقنية المعلومات</div>
                         </div>
                     </div>
                 </div>
@@ -712,7 +713,7 @@
                         <div class="relative rounded-xl overflow-hidden bg-slate-800 min-h-[110px] flex items-end p-3" role="link" style="cursor:pointer" onclick="location.href='pages/discount-details.html?id=restaurants'">
                             <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80"
                                 alt="" class="absolute inset-0 w-full h-full object-cover opacity-80"
-                                onerror="this.src='https://placehold.co/600x200/D76800/FFFFFF?text=20%25';">
+                                onerror="this.src='https://placehold.co/600x200/D76B00/FFFFFF?text=20%25';">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
                             </div>
@@ -818,7 +819,7 @@
                 <div class="bg-gradient-to-br from-vq-teal to-vq-teal-dark rounded-2xl text-white p-4 shadow-sm">
                     <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
                         <h4 class="text-xs font-medium flex items-center gap-1.5">
-                            <i class="fa-solid fa-mosque text-amber-300"></i> <span data-i18n="hpPrayer">مواقيت
+                            <i class="fa-solid fa-mosque text-vq-amber-45"></i> <span data-i18n="hpPrayer">مواقيت
                                 الصلاة</span>
                         </h4>
                         <span class="text-[10px] bg-vq-amber text-white px-2 py-0.5 rounded-lg"
@@ -834,7 +835,7 @@
                             <span class="font-medium mt-1 block">05:19</span>
                         </div>
                         <div class="bg-vq-amber rounded-lg px-1.5 py-2 font-medium">
-                            <span class="block text-amber-100">الظهر</span>
+                            <span class="block text-vq-offwhite">الظهر</span>
                             <span class="mt-1 block">11:30</span>
                         </div>
                         <div class="bg-white/5 rounded-lg px-1.5 py-2">
@@ -945,7 +946,7 @@
                         <article>
                             <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
                                 alt="Message" class="w-full h-20 object-cover rounded-xl mb-2"
-                                onerror="this.src='https://placehold.co/400x160/D76800/FFFFFF?text=Message';">
+                                onerror="this.src='https://placehold.co/400x160/D76B00/FFFFFF?text=Message';">
                             <h5 class="text-xs font-medium text-vq-teal" data-i18n="hpMessageTitle">رسالتنا</h5>
                             <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed" data-i18n="hpMessageText">نصنع
                                 تجارب تبقى في الذاكرة ونمكّن فرق العمل بخدمات رقمية موحدة.</p>

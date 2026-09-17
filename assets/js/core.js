@@ -200,7 +200,7 @@
                     <div class="relative flex-1 max-w-md min-w-0" id="searchWrap">
                         <label for="globalSearch" class="sr-only">${t('searchLabel')}</label>
                         <input id="globalSearch" type="search" autocomplete="off" value="${esc(state.searchQuery)}" placeholder="${t('searchPlaceholder')}"
-                            class="w-full py-2 ps-3 pe-10 text-xs bg-white/15 border border-white/25 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-vq-amber focus:bg-white/25 transition">
+                            class="w-full py-2 ps-3 pe-10 text-xs bg-white/15 border border-white/25 rounded-xl text-white placeholder-white/85 focus:outline-none focus:ring-2 focus:ring-vq-amber focus:bg-white/25 transition">
                         <button type="button" id="searchSubmit" class="absolute top-1/2 -translate-y-1/2 end-2.5 text-white/80 hover:text-white" aria-label="${t('searchLabel')}">
                             <i class="fa-solid fa-magnifying-glass text-xs"></i>
                         </button>
@@ -233,7 +233,7 @@
                         <div class="hidden md:block leading-tight text-start">
                             <div class="text-xs font-medium text-white">${t('userName')}</div>
                             <div class="text-[10px] text-white/85">${t('userTitle')}</div>
-                            <div class="text-[10px] text-white/70">${t('userDept')}</div>
+                            <div class="text-[10px] text-white/80">${t('userDept')}</div>
                         </div>
                     </div>
                 </div>
@@ -294,7 +294,7 @@
         const statements = [
             ['photo-1500530855697-b586d89ba3ee', '00626C', 'Vision', 'hpVisionTitle', 'hpVisionText'],
             ['photo-1486406146926-c627a92ad1ab', '8A1538', 'Mission', 'hpMissionTitle', 'hpMissionText'],
-            ['photo-1529156069898-49953e39b3ac', 'D76800', 'Message', 'hpMessageTitle', 'hpMessageText']
+            ['photo-1529156069898-49953e39b3ac', 'D76B00', 'Message', 'hpMessageTitle', 'hpMessageText']
         ];
 
         return `
@@ -317,12 +317,12 @@
 
         <div class="bg-gradient-to-br from-vq-teal to-vq-teal-dark rounded-2xl text-white p-4 shadow-sm">
             <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
-                <h4 class="text-xs font-medium flex items-center gap-1.5"><i class="fa-solid fa-mosque text-amber-300"></i> <span>${t('hpPrayer')}</span></h4>
+                <h4 class="text-xs font-medium flex items-center gap-1.5"><i class="fa-solid fa-mosque text-vq-amber-45"></i> <span>${t('hpPrayer')}</span></h4>
                 <span class="text-[10px] bg-vq-amber text-white px-2 py-0.5 rounded-lg">${t('hpNextPrayer')}</span>
             </div>
             <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
                 ${prayers.map(([key, time, next]) => next
-                    ? `<div class="bg-vq-amber rounded-lg px-1.5 py-2 font-medium"><span class="block text-amber-100">${t(key)}</span><span class="mt-1 block">${time}</span></div>`
+                    ? `<div class="bg-vq-amber rounded-lg px-1.5 py-2 font-medium"><span class="block text-vq-offwhite">${t(key)}</span><span class="mt-1 block">${time}</span></div>`
                     : `<div class="bg-white/5 rounded-lg px-1.5 py-2"><span class="block text-white/70">${t(key)}</span><span class="font-medium mt-1 block">${time}</span></div>`).join('')}
             </div>
             <p class="text-[10px] text-white/60 mt-3">${t('hpPrayerSource')}</p>
@@ -401,7 +401,7 @@
                     <span class="sr-only">${t('footerCerts')}</span>
                     <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/00626C?text=VQ+Quality" alt="Visit Qatar Quality Certificate">
                     <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/8A1538?text=Safe+Travels" alt="Safe Travels Certificate">
-                    <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/D76800?text=ISO" alt="ISO Certificate">
+                    <img class="footer-cert" src="https://placehold.co/120x64/FFFFFF/D76B00?text=ISO" alt="ISO Certificate">
                 </a>
             </div>
         </div>`;
@@ -571,9 +571,9 @@
             <div class="bg-white rounded-3xl ${size || 'max-w-3xl'} w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col" role="dialog" aria-modal="true">
                 <div class="bg-vq-teal text-white px-4 py-3.5 flex items-center justify-between gap-3 shrink-0">
                     <h3 class="text-sm font-medium flex items-center gap-2 min-w-0">
-                        <i class="fa-solid ${icon || 'fa-circle-info'} text-amber-300"></i><span class="truncate">${title}</span>
+                        <i class="fa-solid ${icon || 'fa-circle-info'} text-vq-amber-45"></i><span class="truncate">${title}</span>
                     </h3>
-                    <button type="button" data-modal-close class="text-white hover:text-amber-300 text-2xl leading-none" aria-label="${t('close')}">&times;</button>
+                    <button type="button" data-modal-close class="text-white hover:text-vq-amber-45 text-2xl leading-none" aria-label="${t('close')}">&times;</button>
                 </div>
                 <div class="overflow-y-auto">${body}</div>
                 ${footer ? `<div class="bg-slate-50 px-4 py-3 border-t border-slate-100 flex flex-wrap items-center justify-end gap-2 shrink-0">${footer}</div>` : ''}
@@ -597,7 +597,7 @@
     function toast(message, icon) {
         const el = $('#vqToast');
         el.innerHTML = `<div class="flex items-center gap-2 bg-vq-teal-dark text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl">
-            <i class="fa-solid ${icon || 'fa-circle-check'} text-amber-300"></i><span>${esc(message)}</span></div>`;
+            <i class="fa-solid ${icon || 'fa-circle-check'} text-vq-amber-45"></i><span>${esc(message)}</span></div>`;
         el.classList.add('is-visible');
         clearTimeout(toastTimer);
         toastTimer = setTimeout(() => el.classList.remove('is-visible'), 2600);

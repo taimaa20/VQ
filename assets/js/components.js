@@ -346,7 +346,7 @@
     function avatar(person, size) {
         const sz = size || 'w-12 h-12 text-base';
         if (person.photo) return VQ.img(person.photo, `${sz} rounded-xl object-cover shrink-0`, 200);
-        const palette = ['#00626C', '#8A1538', '#D76800', '#522D6E', '#01A786', '#A18B29'];
+        const palette = ['#00626C', '#8A1538', '#D76B00', '#522D6E', '#01A786', '#A18B29'];
         const name = tx(person.name);
         const initials = VQ.isAr() ? name.trim().charAt(0) : name.split(/\s+/).map(w => w.charAt(0)).slice(0, 2).join('');
         const color = palette[(person.id || name).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % palette.length];

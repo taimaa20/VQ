@@ -3,7 +3,7 @@ window.VQData = window.VQData || {};
 
 VQData.eventCategories = [
     { key: 'conference', icon: 'fa-microphone-lines', color: '#00626C', label: { ar: 'مؤتمرات وملتقيات', en: 'Conferences & forums' } },
-    { key: 'training', icon: 'fa-chalkboard-user', color: '#D76800', label: { ar: 'تدريب وورش عمل', en: 'Training & workshops' } },
+    { key: 'training', icon: 'fa-chalkboard-user', color: '#D76B00', label: { ar: 'تدريب وورش عمل', en: 'Training & workshops' } },
     { key: 'entertainment', icon: 'fa-masks-theater', color: '#8A1538', label: { ar: 'ثقافة وترفيه', en: 'Culture & entertainment' } },
     { key: 'wellbeing', icon: 'fa-heart-pulse', color: '#01A786', label: { ar: 'صحة ورفاهية', en: 'Health & wellbeing' } }
 ];
